@@ -1,0 +1,36 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define styles -->
+  <defs>
+    <style>
+      .tatu-body { fill: #1a1a1a; }
+      .tatu-accent { fill: #0066cc; }
+    </style>
+  </defs>
+  
+  <!-- Armadillo body (geometric, minimal) -->
+  <g>
+    <!-- Shell segments (curved armor) -->
+    <ellipse cx="100" cy="80" rx="35" ry="28" class="tatu-body"/>
+    <ellipse cx="100" cy="110" rx="38" ry="25" class="tatu-body"/>
+    <ellipse cx="100" cy="135" rx="32" ry="20" class="tatu-body"/>
+    
+    <!-- Head -->
+    <circle cx="100" cy="45" r="22" class="tatu-body"/>
+    
+    <!-- Snout (minimal) -->
+    <ellipse cx="100" cy="38" rx="12" ry="8" class="tatu-accent"/>
+    
+    <!-- Eye (accent) -->
+    <circle cx="95" cy="42" r="3" fill="#ffffff"/>
+    
+    <!-- Tail (curved line) -->
+    <path d="M 120 155 Q 140 160 145 145" stroke="#1a1a1a" stroke-width="6" fill="none" stroke-linecap="round"/>
+    
+    <!-- Front legs (subtle) -->
+    <line x1="85" y1="130" x2="75" y2="150" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+    <line x1="115" y1="130" x2="125" y2="150" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Brand text option (use separately) -->
+  <text x="100" y="185" font-family="Inter, -apple-system, sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#1a1a1a">Jornal Tatu</text>
+</svg>

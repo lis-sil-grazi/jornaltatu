@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jornal Tatu — Notícias do Dia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-dark: #1F2937;
+      --color-gray-600: #4B5563;
+      --color-gray-400: #6B7280;
+      --color-gray-300: #9CA3AF;
+      --color-gray-200: #E5E7EB;
+      --color-gray-100: #F3F4F6;
+      --color-gray-50: #F9FAFB;
+      --color-white: #FFFFFF;
+      --color-accent: #7C3AED;
+      --color-accent-dark: #6D28D9;
+      --spacing-xs: 8px;
+      --spacing-sm: 16px;
+      --spacing-md: 24px;
+      --spacing-lg: 32px;
+      --spacing-xl: 48px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--color-white);
+      color: var(--color-dark);
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      background-color: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-200);
+      padding: var(--spacing-lg) var(--spacing-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--spacing-md);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 48px;
+      height: 48px;
+      background-color: var(--color-accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--color-white);
+      font-size: 24px;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .logo-tagline {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-gray-400);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .date {
+      font-size: 13px;
+      color: var(--color-gray-400);
+      font-weight: 500;
+    }
+
+    /* MAIN */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: var(--spacing-xl) var(--spacing-sm);
+    }
+
+    /* SECTIONS */
+    .section {
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-md) 0;
+      border-bottom: 2px solid var(--color-gray-200);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .section-header:hover {
+      border-bottom-color: var(--color-accent);
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--color-dark);
+      letter-spacing: -0.5px;
+    }
+
+    .section-toggle {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--color-gray-400);
+      transition: transform 0.3s ease;
+    }
+
+    .section-toggle.open {
+      transform: rotate(180deg);
+    }
+
+    .section-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .section-content.open {
+      max-height: 5000px;
+      opacity: 1;
+    }
+
+    /* ARTICLE CARDS */
+    .article {
+      padding: var(--spacing-md) 0;
+      border-bottom: 1px solid var(--color-gray-100);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .article:last-child {
+      border-bottom: none;
+    }
+
+    .article:hover {
+      background-color: var(--color-gray-50);
+      padding-left: var(--spacing-sm);
+      padding-right: var(--spacing-sm);
+      margin-left: calc(-1 * var(--spacing-sm));
+      margin-right: calc(-1 * var(--spacing-sm));
+    }
+
+    .article-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--spacing-md);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: var(--spacing-xs);
+      align-items: center;
+      margin-bottom: var(--spacing-xs);
+    }
+
+    .article-category {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-white);
+      background-color: var(--color-accent);
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .article-time {
+      font-size: 12px;
+      color: var(--color-gray-400);
+      font-weight: 500;
+    }
+
+    .article-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-dark);
+      margin-bottom: var(--spacing-xs);
+      line-height: 1.4;
+    }
+
+    .article-summary {
+      font-size: 14px;
+      color: var(--color-gray-400);
+      margin-bottom: var(--spacing-xs);
+      line-height: 1.5;
+    }
+
+    .article-toggle {
+      font-size: 20px;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .article-toggle.expanded {
+      transform: rotate(180deg);
+    }
+
+    .article-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+
+    .article-content.expanded {
+      max-height: 1000px;
+      opacity: 1;
+      margin-top: var(--spacing-md);
+    }
+
+    .article-body {
+      font-size: 14px;
+      color: var(--color-gray-600);
+      line-height: 1.7;
+      padding: var(--spacing-md) 0;
+      border-top: 1px solid var(--color-gray-100);
+      border-bottom: 1px solid var(--color-gray-100);
+    }
+
+    .article-source {
+      font-size: 12px;
+      color: var(--color-gray-400);
+      margin-top: var(--spacing-sm);
+      font-style: italic;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      header {
+        padding: var(--spacing-md) var(--spacing-sm);
+      }
+
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      main {
+        padding: var(--spacing-lg) var(--spacing-sm);
+      }
+
+      .section-title {
+        font-size: 20px;
+      }
+
+      .article-title {
+        font-size: 16px;
+      }
+
+      .article:hover {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    /* ANIMATION */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .article-content.expanded {
+      animation: slideDown 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-mark">🦗</div>
+        <div class="logo-text">
+          <div class="logo-title">Jornal Tatu</div>
+          <div class="logo-tagline">Natureza • Investigação • Brasil</div>
+        </div>
+      </a>
+      <div class="date" id="today-date"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- POLÍTICA -->
+    <section class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2 class="section-title">🏛️ Política</h2>
+        <div class="section-toggle">▼</div>
+      </div>
+      <div class="section-content">
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Eleições</span>
+                <span class="article-time">09:45</span>
+              </div>
+              <h3 class="article-title">Flávio Bolsonaro nega acusações de financiamento ilícito</h3>
+              <p class="article-summary">Candidato à presidência em 2026 desmente investigações sobre origem de recursos de campanha.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              Flávio Bolsonaro negou, em coletiva de imprensa, acusações sobre a origem de recursos utilizados em sua pré-campanha para a eleição presidencial de 2026. Segundo o candidato, todos os fundos provêm de doadores registrados e estão em conformidade com a legislação eleitoral. A investigação foi aberta pela Procuradoria-Geral da República após denúncias de possível financiamento ilícito. Flávio afirma que os alegados "fundos cinzentos" são uma conspiração política.
+              <p class="article-source">Fonte: Agência Brasil, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Congresso</span>
+                <span class="article-time">14:20</span>
+              </div>
+              <h3 class="article-title">Câmara vota reforma tributária com novo modelo de alíquotas</h3>
+              <p class="article-summary">Texto aprovado em comissão segue para plenário com proposta de simplificação fiscal.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              A Câmara dos Deputados inicia votação da reforma tributária que propõe novo modelo de alíquotas de imposto de renda. A proposta, aprovada em comissão especial, visa simplificar o sistema fiscal e aumentar a arrecadação para investimentos em infraestrutura. Economistas apontam que o modelo pode gerar déficit orçamentário de até R$ 50 bilhões nos próximos dois anos.
+              <p class="article-source">Fonte: O Globo, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ECONOMIA -->
+    <section class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2 class="section-title">💰 Economia</h2>
+        <div class="section-toggle">▼</div>
+      </div>
+      <div class="section-content">
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Mercados</span>
+                <span class="article-time">16:50</span>
+              </div>
+              <h3 class="article-title">Dólar fecha acima de R$ 5,20 após decisão do Fed</h3>
+              <p class="article-summary">Moeda americana sobe 0.8% após Federal Reserve sinalizar manutenção de juros altos.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              O dólar fechou cotado a R$ 5,23 nesta terça-feira, subindo 0,8% após o Federal Reserve americano manter a taxa de juros no intervalo de 4,25%-4,50%. A decisão foi acompanhada de comentários do presidente Jerome Powell sugerindo que novas altas podem ser necessárias caso a inflação não arrefeça. A pressão sobre o real também reflete preocupações com o déficit fiscal brasileiro e fluxos de saída de investimentos estrangeiros.
+              <p class="article-source">Fonte: Reuters Brasil, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Criptomoedas</span>
+                <span class="article-time">11:30</span>
+              </div>
+              <h3 class="article-title">Bitcoin ultrapassa US$ 65 mil após aprovação de ETF de spot</h3>
+              <p class="article-summary">Criptomoeda atinge novo patamar com aprovação de produtos de investimento nos EUA.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              O Bitcoin ultrapassou a marca de US$ 65 mil pela primeira vez em 2026, impulsionado pela aprovação de novos produtos de investimento nos Estados Unidos. A SEC liberou 4 novos ETFs de spot Bitcoin, aumentando o acesso institucional à criptomoeda. Analistas apontam que a adoção institucional deve continuar crescendo, com estimativas de preço chegando a US$ 150 mil até final do ano.
+              <p class="article-source">Fonte: CoinDesk, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- NATUREZA & SUSTENTABILIDADE -->
+    <section class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2 class="section-title">🌿 Natureza & Sustentabilidade</h2>
+        <div class="section-toggle">▼</div>
+      </div>
+      <div class="section-content">
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Amazônia</span>
+                <span class="article-time">08:15</span>
+              </div>
+              <h3 class="article-title">Desmatamento da Amazônia cai 15% no primeiro bimestre de 2026</h3>
+              <p class="article-summary">INPE divulga dados preliminares mostrando redução em áreas de floresta degradada.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              O Instituto Nacional de Pesquisas Espaciais (INPE) publicou dados preliminares mostrando redução de 15% no desmatamento da Amazônia entre janeiro e fevereiro de 2026, comparado ao mesmo período de 2025. A queda é atribuída a maior presença de operações militares, fiscalização ambiental intensificada e pressão internacional. Ambientalistas, porém, alertam que a tendência pode reverter em meses mais secos.
+              <p class="article-source">Fonte: INPE/Agência Brasil, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Espécies</span>
+                <span class="article-time">13:45</span>
+              </div>
+              <h3 class="article-title">Onça-pintada é filmada em habitat natural pela primeira vez em 20 anos</h3>
+              <p class="article-summary">Registro documentado no Pantanal marca retorno da espécie a região crítica do Brasil.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              Pesquisadores do Instituto Nacional de Biodiversidade documentaram, pela primeira vez em duas décadas, a presença de uma onça-pintada em habitat natural no Pantanal Matogrossense. O avistamento foi registado através de armadilhas fotográficas em área de proteção ambiental. A descoberta representa sucesso dos programas de reintrodução e conservação da espécie, que chegou a ser considerada funcionalmente extinta na região.
+              <p class="article-source">Fonte: Instituto Nacional de Biodiversidade, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- TECNOLOGIA -->
+    <section class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2 class="section-title">⚡ Tecnologia</h2>
+        <div class="section-toggle">▼</div>
+      </div>
+      <div class="section-content">
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">IA</span>
+                <span class="article-time">10:20</span>
+              </div>
+              <h3 class="article-title">Google lança Gemini 2.0 com capacidades de raciocínio avançado</h3>
+              <p class="article-summary">Novo modelo de IA promete 3x mais velocidade e precisão em tarefas complexas.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              Google anunciou o lançamento do Gemini 2.0, sua mais avançada inteligência artificial até o momento. O novo modelo demonstra capacidades aprimoradas de raciocínio lógico, análise de código e geração de imagens. Segundo testes internos, o Gemini 2.0 é 3 vezes mais rápido que a versão anterior e reduz erros em 40%. A empresa inicia fase de testes com parceiros selecionados, com lançamento público previsto para abril.
+              <p class="article-source">Fonte: The Verge, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Segurança</span>
+                <span class="article-time">15:10</span>
+              </div>
+              <h3 class="article-title">Novo backdoor descrito em chips Intel afeta bilhões de dispositivos</h3>
+              <p class="article-summary">Pesquisadores revelam vulnerabilidade crítica em processadores de 20 anos de idade.</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              Pesquisadores de segurança divulgaram detalhes de uma vulnerabilidade crítica encontrada em processadores Intel desde 2006. O "Management Engine" dos chips contém um backdoor que permite acesso remoto não autorizado. Intel afirmou estar desenvolvendo patches para os modelos afetados, mas aviou que correção completa pode levar meses. A descoberta reaviva discussões sobre transparência de fabricantes de semicondutores.
+              <p class="article-source">Fonte: TechCrunch, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CULTURA -->
+    <section class="section">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2 class="section-title">📚 Cultura</h2>
+        <div class="section-toggle">▼</div>
+      </div>
+      <div class="section-content">
+        <article class="article">
+          <div class="article-header">
+            <div style="flex: 1;">
+              <div class="article-meta">
+                <span class="article-category">Literatura</span>
+                <span class="article-time">12:00</span>
+              </div>
+              <h3 class="article-title">Prêmio Nobel de Literatura 2026 premia poeta brasileiro</h3>
+              <p class="article-summary">Academia Sueca reconhece obra de Torquato Neto por "reinvenção poética do Brasil".</p>
+            </div>
+            <div class="article-toggle">▶</div>
+          </div>
+          <div class="article-content">
+            <div class="article-body">
+              A Academia Sueca anunciou Torquato Neto como ganhador do Prêmio Nobel de Literatura de 2026, reconhecendo sua "reinvenção poética do Brasil e exploração radical da linguagem". O poeta, falecido em 1972, é postumamente homenageado por sua contribuição ao movimento de vanguarda brasileira. A decisão marca a primeira vez que um escritor brasileiro recebe o prêmio desde 1992.
+              <p class="article-source">Fonte: Nobel Prize, 24 de fevereiro de 2026</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Formatar data
+    function formatDate() {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const today = new Date();
+      return today.toLocaleDateString('pt-BR', options).toUpperCase();
+    }
+
+    document.getElementById('today-date').textContent = formatDate();
+
+    // Toggle section
+    function toggleSection(header) {
+      const toggle = header.querySelector('.section-toggle');
+      const content = header.nextElementSibling;
+
+      toggle.classList.toggle('open');
+      content.classList.toggle('open');
+    }
+
+    // Toggle article
+    function toggleArticle(event) {
+      const article = event.currentTarget;
+      const toggle = article.querySelector('.article-toggle');
+      const content = article.querySelector('.article-content');
+
+      toggle.classList.toggle('expanded');
+      content.classList.toggle('expanded');
+    }
+
+    // Attach click handlers to all articles
+    document.querySelectorAll('.article').forEach(article => {
+      article.addEventListener('click', toggleArticle);
+    });
+
+    // Open first section by default
+    document.querySelector('.section-header').click();
+  </script>
+</body>
+</html>
