@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Jornal Tatu — Investigação, Natureza, Brasil">
-  <title>Jornal Tatu — Investigação • Natureza • Brasil</title>
+  <meta name="description" content="JT — Notícias interessantes do dia, todos os dias">
+  <title>JT — Notícias do Dia</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -14,25 +14,17 @@
     }
 
     :root {
-      --color-dark: #1F2937;
-      --color-gray-600: #4B5563;
-      --color-gray-500: #6B7280;
-      --color-gray-400: #9CA3AF;
-      --color-gray-300: #D1D5DB;
-      --color-gray-200: #E5E7EB;
-      --color-gray-100: #F3F4F6;
-      --color-gray-50: #F9FAFB;
-      --color-white: #FFFFFF;
-      --color-accent: #7C3AED;
-      --color-accent-dark: #6D28D9;
-      --color-green: #10B981;
-      --color-blue: #3B82F6;
-      --spacing-xs: 8px;
-      --spacing-sm: 16px;
-      --spacing-md: 24px;
-      --spacing-lg: 32px;
-      --spacing-xl: 48px;
-      --spacing-2xl: 64px;
+      --dark: #1F2937;
+      --gray-600: #4B5563;
+      --gray-500: #6B7280;
+      --gray-400: #9CA3AF;
+      --gray-300: #D1D5DB;
+      --gray-200: #E5E7EB;
+      --gray-100: #F3F4F6;
+      --gray-50: #F9FAFB;
+      --white: #FFFFFF;
+      --accent: #7C3AED;
+      --accent-dark: #6D28D9;
     }
 
     html {
@@ -41,21 +33,20 @@
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background-color: var(--color-white);
-      color: var(--color-dark);
+      background: var(--white);
+      color: var(--dark);
       line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* HEADER / NAVIGATION */
+    /* HEADER */
     header {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(229, 231, 235, 0.3);
-      padding: var(--spacing-lg) var(--spacing-sm);
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 16px 48px;
     }
 
     .header-container {
@@ -64,507 +55,329 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: var(--spacing-lg);
-      padding: 0 var(--spacing-xl);
+      gap: 32px;
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      text-decoration: none;
-    }
-
-    .logo-mark {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-size: 24px;
       font-weight: 700;
-      color: var(--color-white);
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-
-    .logo-text h2 {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--color-dark);
-      letter-spacing: -0.3px;
-      margin: 0;
-    }
-
-    nav {
-      display: flex;
-      gap: var(--spacing-xl);
-      align-items: center;
-    }
-
-    nav a {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--color-dark);
+      color: var(--dark);
+      letter-spacing: -1px;
       text-decoration: none;
-      transition: color 0.3s ease;
-      position: relative;
     }
 
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--color-accent);
-      transition: width 0.3s ease;
+    .search-container {
+      flex: 1;
+      max-width: 400px;
     }
 
-    nav a:hover::after {
+    .search-input {
       width: 100%;
+      padding: 10px 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--dark);
+      transition: all 0.3s ease;
     }
 
-    .search-icon {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      opacity: 0.6;
-      transition: opacity 0.3s ease;
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
     }
 
-    .search-icon:hover {
-      opacity: 1;
+    .search-input::placeholder {
+      color: var(--gray-400);
     }
 
-    /* HERO SECTION */
+    /* HERO */
     .hero {
-      background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--color-white) 100%);
-      padding: var(--spacing-2xl) var(--spacing-xl);
+      background: var(--gray-50);
+      padding: 64px 48px;
       text-align: center;
-      min-height: 600px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: var(--spacing-xl);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .hero-logo {
-      width: 200px;
-      height: 200px;
-      animation: float 3s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-15px); }
-    }
-
-    .hero h1 {
-      font-size: 64px;
+      font-size: 100px;
       font-weight: 700;
-      letter-spacing: -1px;
-      color: var(--color-dark);
-      margin: 0;
-      max-width: 900px;
-      line-height: 1.2;
+      color: var(--dark);
+      letter-spacing: -2px;
+      margin-bottom: 16px;
     }
 
-    .hero .tagline {
-      font-size: 18px;
-      font-weight: 400;
-      color: var(--color-gray-500);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      margin: 0;
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      background: var(--color-accent);
-      color: var(--color-white);
-      padding: var(--spacing-sm) var(--spacing-lg);
-      border-radius: 8px;
-      text-decoration: none;
+    .hero-title {
+      font-size: 36px;
       font-weight: 600;
-      font-size: 16px;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+      color: var(--dark);
+      margin-bottom: 12px;
     }
 
-    .hero-cta:hover {
-      background: var(--color-accent-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3);
+    .hero-date {
+      font-size: 14px;
+      color: var(--gray-500);
+      letter-spacing: 0.5px;
+    }
+
+    /* TABS */
+    .tabs-container {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 64px;
+      z-index: 900;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tabs {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      padding: 0 48px;
+    }
+
+    .tab {
+      padding: 16px 24px;
+      border: none;
+      background: none;
+      color: var(--gray-500);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .tab:hover {
+      color: var(--accent);
+    }
+
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
     }
 
     /* MAIN CONTENT */
     main {
       max-width: 1200px;
       margin: 0 auto;
-      padding: var(--spacing-2xl) var(--spacing-xl);
+      padding: 48px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
     }
 
     .section-title {
-      font-size: 48px;
+      font-size: 24px;
       font-weight: 600;
-      letter-spacing: -0.5px;
-      color: var(--color-dark);
-      margin-bottom: var(--spacing-xl);
-      padding-left: var(--spacing-xl);
+      color: var(--accent);
     }
 
-    /* ARTICLE GRID */
-    .articles-grid {
+    .section-date {
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    /* NEWS GRID */
+    .news-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: var(--spacing-md);
-      margin-bottom: var(--spacing-2xl);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
     }
 
-    @media (min-width: 1024px) {
-      .articles-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (min-width: 768px) and (max-width: 1023px) {
-      .articles-grid {
+    @media (max-width: 1024px) {
+      .news-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 767px) {
-      .articles-grid {
+    @media (max-width: 768px) {
+      .news-grid {
         grid-template-columns: 1fr;
       }
     }
 
-    /* ARTICLE CARD */
-    .article-card {
-      background: var(--color-white);
-      border-radius: 12px;
-      overflow: hidden;
+    /* NEWS CARD */
+    .news-card {
+      padding: 20px;
+      border-radius: 8px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
       transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       cursor: pointer;
-      height: 100%;
       display: flex;
       flex-direction: column;
+      gap: 12px;
     }
 
-    .article-card:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    .news-card:hover {
+      background: var(--gray-50);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
-    .article-image {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%; /* 16:9 ratio */
-      overflow: hidden;
-      background: linear-gradient(135deg, var(--color-gray-200) 0%, var(--color-gray-100) 100%);
-    }
-
-    .article-image img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-
-    .article-card:hover .article-image img {
-      transform: scale(1.05);
-    }
-
-    .article-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+    .news-card-header {
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: var(--spacing-md);
-      gap: var(--spacing-sm);
+      gap: 12px;
+      align-items: flex-start;
     }
 
-    .article-category {
-      display: inline-block;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 4px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      width: fit-content;
-    }
-
-    .category-green {
-      background: var(--color-green);
-      color: var(--color-white);
-    }
-
-    .category-blue {
-      background: var(--color-blue);
-      color: var(--color-white);
-    }
-
-    .category-purple {
-      background: var(--color-accent);
-      color: var(--color-white);
-    }
-
-    .article-meta {
+    .news-thumbnail {
+      font-size: 40px;
+      flex-shrink: 0;
+      width: 60px;
+      height: 60px;
       display: flex;
-      gap: var(--spacing-sm);
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.8);
+      align-items: center;
+      justify-content: center;
     }
 
-    .article-overlay h3 {
-      font-size: 20px;
+    .news-card-content {
+      flex: 1;
+    }
+
+    .news-headline {
+      font-size: 18px;
       font-weight: 600;
-      color: var(--color-white);
-      margin: 0;
+      color: var(--dark);
       line-height: 1.4;
+      margin-bottom: 8px;
+      transition: color 0.3s ease;
     }
 
-    .article-content {
-      padding: var(--spacing-md);
-      flex-grow: 1;
+    .news-card:hover .news-headline {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .news-meta {
       display: flex;
-      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-bottom: 8px;
     }
 
-    .article-content h3 {
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: -0.25px;
-      color: var(--color-dark);
-      margin: 0 0 var(--spacing-sm) 0;
-      line-height: 1.4;
-      flex-grow: 1;
+    .news-source {
+      font-weight: 500;
     }
 
-    .article-excerpt {
-      font-size: 16px;
-      color: var(--color-gray-500);
-      margin: 0 0 var(--spacing-md) 0;
+    .news-snippet {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.5;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
-      line-height: 1.5;
-    }
-
-    .article-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: var(--spacing-sm);
-      border-top: 1px solid var(--color-gray-200);
-      font-size: 12px;
-      color: var(--color-gray-500);
-    }
-
-    .read-time {
-      font-weight: 500;
     }
 
     /* FOOTER */
     footer {
-      background: var(--color-gray-50);
-      padding: var(--spacing-2xl) var(--spacing-xl);
-      border-top: 1px solid var(--color-gray-200);
-      margin-top: var(--spacing-2xl);
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+      padding: 48px;
+      text-align: center;
     }
 
     .footer-container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 var(--spacing-xl);
     }
 
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: var(--spacing-xl);
-      margin-bottom: var(--spacing-xl);
+    .footer-text {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-bottom: 16px;
     }
 
-    .footer-section h4 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-dark);
-      margin-bottom: var(--spacing-md);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      font-size: 12px;
+      margin-bottom: 16px;
     }
 
-    .footer-section p {
-      font-size: 14px;
-      color: var(--color-gray-500);
-      margin-bottom: var(--spacing-sm);
-      line-height: 1.6;
-    }
-
-    .footer-section a {
-      display: inline-block;
-      font-size: 14px;
-      color: var(--color-accent);
-      text-decoration: underline;
-      margin-bottom: var(--spacing-sm);
+    .footer-links a {
+      color: var(--accent);
+      text-decoration: none;
       transition: color 0.3s ease;
     }
 
-    .footer-section a:hover {
-      color: var(--color-accent-dark);
+    .footer-links a:hover {
+      color: var(--accent-dark);
+      text-decoration: underline;
     }
 
-    .newsletter-form {
-      display: flex;
-      gap: var(--spacing-sm);
-      margin-top: var(--spacing-md);
-    }
-
-    .newsletter-form input {
-      flex-grow: 1;
-      padding: var(--spacing-sm) var(--spacing-md);
-      border: 1px solid var(--color-gray-300);
-      border-radius: 6px;
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-      transition: border-color 0.3s ease;
-    }
-
-    .newsletter-form input:focus {
-      outline: none;
-      border-color: var(--color-accent);
-      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
-    }
-
-    .newsletter-form button {
-      padding: var(--spacing-sm) var(--spacing-lg);
-      background: var(--color-accent);
-      color: var(--color-white);
-      border: none;
-      border-radius: 6px;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .newsletter-form button:hover {
-      background: var(--color-accent-dark);
-      transform: translateY(-1px);
-    }
-
-    .footer-divider {
-      border-top: 1px solid var(--color-gray-200);
-      padding-top: var(--spacing-lg);
-      margin-top: var(--spacing-lg);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 12px;
-      color: var(--color-gray-500);
-    }
-
-    .social-links {
-      display: flex;
-      gap: var(--spacing-md);
-    }
-
-    .social-links a {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--color-gray-200);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: var(--color-dark);
-      transition: all 0.3s ease;
-      font-size: 16px;
-    }
-
-    .social-links a:hover {
-      background: var(--color-accent);
-      color: var(--color-white);
-    }
-
-    /* MOBILE RESPONSIVENESS */
+    /* RESPONSIVE */
     @media (max-width: 768px) {
+      header {
+        padding: 16px 16px;
+      }
+
       .header-container {
-        padding: 0 var(--spacing-md);
-      }
-
-      nav {
-        gap: var(--spacing-lg);
-      }
-
-      nav a {
-        font-size: 12px;
+        padding: 0;
       }
 
       .hero {
-        padding: var(--spacing-xl) var(--spacing-md);
-        min-height: 500px;
+        padding: 48px 16px;
       }
 
       .hero-logo {
-        width: 140px;
-        height: 140px;
+        font-size: 64px;
       }
 
-      .hero h1 {
-        font-size: 48px;
-        letter-spacing: -0.5px;
+      .hero-title {
+        font-size: 28px;
       }
 
-      .hero .tagline {
-        font-size: 14px;
+      .tabs-container {
+        top: 56px;
+      }
+
+      .tabs {
+        padding: 0 16px;
+      }
+
+      .tab {
+        padding: 12px 16px;
+        font-size: 12px;
       }
 
       main {
-        padding: var(--spacing-lg) var(--spacing-md);
+        padding: 24px 16px;
       }
 
-      .section-title {
-        font-size: 36px;
-        padding-left: var(--spacing-md);
+      .section-header {
+        margin-bottom: 24px;
       }
 
-      .article-content h3 {
-        font-size: 20px;
+      .news-grid {
+        gap: 16px;
       }
 
-      .article-excerpt {
-        font-size: 14px;
+      .news-card {
+        padding: 16px;
       }
 
-      .footer-content {
-        grid-template-columns: 1fr;
-      }
-
-      .footer-divider {
-        flex-direction: column;
-        gap: var(--spacing-md);
+      .search-container {
+        max-width: none;
       }
     }
   </style>
@@ -573,216 +386,523 @@
   <!-- HEADER -->
   <header>
     <div class="header-container">
-      <a href="/" class="logo">
-        <div class="logo-mark">🦡</div>
-        <div class="logo-text">
-          <h2>Jornal Tatu</h2>
-        </div>
-      </a>
-      <nav>
-        <a href="#noticias">Notícias</a>
-        <a href="#investigacoes">Investigações</a>
-        <a href="#sobre">Sobre</a>
-      </nav>
-      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-      </svg>
+      <a href="/" class="logo">JT</a>
+      <div class="search-container">
+        <input type="search" class="search-input" placeholder="Buscar notícias..." aria-label="Buscar notícias">
+      </div>
     </div>
   </header>
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
   <section class="hero">
-    <svg class="hero-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="100" cy="100" r="95" fill="#F9FAFB" stroke="#1F2937" stroke-width="2"/>
-      <circle cx="70" cy="80" r="8" fill="#1F2937"/>
-      <circle cx="130" cy="80" r="8" fill="#1F2937"/>
-      <ellipse cx="100" cy="100" rx="12" ry="16" fill="#1F2937"/>
-      <path d="M 50 130 Q 60 140 80 145 Q 100 148 120 145 Q 140 140 150 130" stroke="#1F2937" stroke-width="3" fill="none"/>
-      <rect x="40" y="140" width="12" height="30" rx="6" fill="#1F2937" opacity="0.8"/>
-      <rect x="94" y="140" width="12" height="30" rx="6" fill="#1F2937" opacity="0.8"/>
-      <rect x="148" y="140" width="12" height="30" rx="6" fill="#1F2937" opacity="0.8"/>
-    </svg>
-    <h1>Investigação • Natureza • Brasil</h1>
-    <p class="tagline">Jornalismo investigativo de qualidade</p>
-    <a href="#noticias" class="hero-cta">Leia as Últimas Notícias →</a>
+    <div class="hero-container">
+      <div class="hero-logo">JT</div>
+      <h1 class="hero-title">Notícias do Dia</h1>
+      <p class="hero-date" id="heroDate"></p>
+    </div>
   </section>
 
-  <!-- MAIN CONTENT -->
-  <main id="noticias">
-    <h2 class="section-title">Notícias em Destaque</h2>
-    
-    <div class="articles-grid">
-      <!-- Article 1 -->
-      <article class="article-card">
-        <div class="article-image">
-          <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=600&h=400&fit=crop" alt="Floresta Amazônica" loading="lazy">
-          <div class="article-overlay">
-            <div class="article-category category-green">Amazônia</div>
-            <div class="article-meta">
-              <span>24 Feb 2026</span>
-              <span>•</span>
-              <span>8 min read</span>
-            </div>
-            <h3>A Última Fronteira Desaparece</h3>
-          </div>
-        </div>
-        <div class="article-content">
-          <h3>A Última Fronteira Desaparece</h3>
-          <p class="article-excerpt">Investigação revela que 23% da Amazônia foi devastada nos últimos 5 anos. Nossos repórteres passaram 6 meses no coração da floresta.</p>
-          <div class="article-footer">
-            <span class="read-time">8 min</span>
-            <a href="#" style="text-decoration: none; color: var(--color-accent);">Ler mais →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article 2 -->
-      <article class="article-card">
-        <div class="article-image">
-          <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&h=400&fit=crop" alt="Vida Marinha" loading="lazy">
-          <div class="article-overlay">
-            <div class="article-category category-blue">Oceanos</div>
-            <div class="article-meta">
-              <span>23 Feb 2026</span>
-              <span>•</span>
-              <span>6 min read</span>
-            </div>
-            <h3>Tráfico Ilegal de Espécies Marinhas</h3>
-          </div>
-        </div>
-        <div class="article-content">
-          <h3>Tráfico Ilegal de Espécies Marinhas</h3>
-          <p class="article-excerpt">Rede criminal movimenta US$2 bilhões anuais. Documentamos rotas de contrabando de corais e peixes raros da Atlântica.</p>
-          <div class="article-footer">
-            <span class="read-time">6 min</span>
-            <a href="#" style="text-decoration: none; color: var(--color-accent);">Ler mais →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article 3 -->
-      <article class="article-card">
-        <div class="article-image">
-          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop" alt="Cerrado Brasileiro" loading="lazy">
-          <div class="article-overlay">
-            <div class="article-category category-green">Cerrado</div>
-            <div class="article-meta">
-              <span>22 Feb 2026</span>
-              <span>•</span>
-              <span>7 min read</span>
-            </div>
-            <h3>Esperança Brota da Mata</h3>
-          </div>
-        </div>
-        <div class="article-content">
-          <h3>Esperança Brota da Mata</h3>
-          <p class="article-excerpt">Comunidades indígenas retomam proteção do Cerrado. Seu trabalho de reflorestamento evita 500 toneladas de CO² anuais.</p>
-          <div class="article-footer">
-            <span class="read-time">7 min</span>
-            <a href="#" style="text-decoration: none; color: var(--color-accent);">Ler mais →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Article 4 -->
-      <article class="article-card">
-        <div class="article-image">
-          <img src="https://images.unsplash.com/photo-1512156319629-aa17b92ea92f?w=600&h=400&fit=crop" alt="Seca Ambiental" loading="lazy">
-          <div class="article-overlay">
-            <div class="article-category category-purple">Clima</div>
-            <div class="article-meta">
-              <span>21 Feb 2026</span>
-              <span>•</span>
-              <span>10 min read</span>
-            </div>
-            <h3>Quando a Água Acaba</h3>
-          </div>
-        </div>
-        <div class="article-content">
-          <h3>Quando a Água Acaba</h3>
-          <p class="article-excerpt">Análise profunda da crise hídrica em 8 regiões brasileiras. Como a falta de água ameaça 40 milhões de pessoas.</p>
-          <div class="article-footer">
-            <span class="read-time">10 min</span>
-            <a href="#" style="text-decoration: none; color: var(--color-accent);">Ler mais →</a>
-          </div>
-        </div>
-      </article>
+  <!-- TABS -->
+  <div class="tabs-container" role="tablist">
+    <div class="tabs">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="bitcoin">Bitcoin</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="hotelaria">Hotelaria</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="viagens">Viagens</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="economia">Economia</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="politica">Política</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="brasil">Brasil</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="tendencias">Tendências</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="tech">Tech</button>
     </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Bitcoin -->
+    <section id="bitcoin" class="tab-content active">
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-bitcoin">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">₿</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Bitcoin bate US$100k; analistas apontam corrida de instituições</h3>
+              <div class="news-meta"><span class="news-source">Reuters</span> <span>•</span> <span>2h atrás</span></div>
+              <p class="news-snippet">Maior criptomoeda ultrapassa marco histórico com inflow de US$500M de fundos. Analistas discutem possível rally até US$150k.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">📊</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Macro: Fed sinaliza pausa em altas de juros para próximas reuniões</h3>
+              <div class="news-meta"><span class="news-source">Bloomberg</span> <span>•</span> <span>4h atrás</span></div>
+              <p class="news-snippet">Decisão aquece expectativas de risco em ativos. Mercado precifica quedas gradualmente com novo discurso.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🇸🇻</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">El Salvador amplia holdings de Bitcoin com nova compra bilionária</h3>
+              <div class="news-meta"><span class="news-source">CoinTelegraph</span> <span>•</span> <span>6h atrás</span></div>
+              <p class="news-snippet">País acumula maior tesouro de BTC de governo. Nayib Bukele confirma estratégia de longo prazo.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">⚡</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Lightning Network atinge milestone de 10M transações mensais</h3>
+              <div class="news-meta"><span class="news-source">Bitcoin Magazine</span> <span>•</span> <span>8h atrás</span></div>
+              <p class="news-snippet">Layer 2 da Bitcoin prova escalabilidade. Transações instantâneas com taxas ultrabaixas revolucionam pagamentos.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🔐</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Segurança: novo ataque a carteiras de cripto explorado em wild</h3>
+              <div class="news-meta"><span class="news-source">ZDNet</span> <span>•</span> <span>5h atrás</span></div>
+              <p class="news-snippet">Pesquisadores descobrem vulnerabilidade em alguns modelos de hardware wallet. Patch disponível emergencialmente.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Hotelaria -->
+    <section id="hotelaria" class="tab-content" hidden>
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-hotelaria">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🏨</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Marriott lança categoria luxury em Portugal com 12 novos resorts</h3>
+              <div class="news-meta"><span class="news-source">Travel Weekly</span> <span>•</span> <span>1h atrás</span></div>
+              <p class="news-snippet">Investimento de €2B marca expansão no mercado ibérico. Foco em sustentabilidade e experiências imersivas.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">✈️</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">TAP Air Portugal anuncia rota direto São Paulo-Paris sem escalas</h3>
+              <div class="news-meta"><span class="news-source">Aviation News</span> <span>•</span> <span>3h atrás</span></div>
+              <p class="news-snippet">Nova conexão reduz tempo de viagem em 2h. Operações iniciam em abril com 5 voos semanais.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🏠</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Airbnb refina política de anúncios; novas restrições entram em vigor</h3>
+              <div class="news-meta"><span class="news-source">Skift</span> <span>•</span> <span>5h atrás</span></div>
+              <p class="news-snippet">Plataforma tightens moderation. Experiências com restrições de idade agora precisam verificação adicional.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🛏️</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Hilton ultrapassa 1 milhão de quartos: novo recorde global</h3>
+              <div class="news-meta"><span class="news-source">Hotel Management</span> <span>•</span> <span>7h atrás</span></div>
+              <p class="news-snippet">Expansão agressiva em mercados emergentes consolida liderança. Meta 2030: 2 milhões de quartos.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Viagens -->
+    <section id="viagens" class="tab-content" hidden>
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-viagens">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🗺️</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Portugal surge como destino mais seguro da Europa em ranking global</h3>
+              <div class="news-meta"><span class="news-source">Travel + Leisure</span> <span>•</span> <span>2h atrás</span></div>
+              <p class="news-snippet">Turismo português bate recordes pós-pandemia com 27M visitantes anuais. Tendência de crescimento continua.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🏖️</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Ilhas Maldivas enfrentam piores enchentes em 50 anos; turismo impactado</h3>
+              <div class="news-meta"><span class="news-source">Reuters</span> <span>•</span> <span>4h atrás</span></div>
+              <p class="news-snippet">Mudanças climáticas ameaçam estações turísticas. Governo prioriza infraestrutura resiliente.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🚂</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Novo trem de luxo Europe Express conecta 7 países em uma viagem</h3>
+              <div class="news-meta"><span class="news-source">Condé Nast Traveler</span> <span>•</span> <span>6h atrás</span></div>
+              <p class="news-snippet">Experiência imersiva de 14 dias revive clássico da Belle Époque. Tickets começam em €25k.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🎫</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Viagens aéreas ficam 12% mais caras em 2026; jetlagged demand persiste</h3>
+              <div class="news-meta"><span class="news-source">IATA</span> <span>•</span> <span>8h atrás</span></div>
+              <p class="news-snippet">Custos de combustível e taxas ambientais elevam preços. Companhias investem em sustentabilidade.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Economia -->
+    <section id="economia" class="tab-content" hidden>
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-economia">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">📈</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Ibovespa sobe 2.5% com bancos em alta; dólar fecha em R$4.82</h3>
+              <div class="news-meta"><span class="news-source">Valor</span> <span>•</span> <span>30min atrás</span></div>
+              <p class="news-snippet">Mercado reage positivamente a dados de inflação. Expectativa: mais altas de taxa pelo BC.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">💰</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Dólar cai para R$4.85; mercado repreça expectativas de Selic</h3>
+              <div class="news-meta"><span class="news-source">Folha de S.Paulo</span> <span>•</span> <span>1h atrás</span></div>
+              <p class="news-snippet">Sinais de Fed pausando altas beneficiam moedas emergentes. Brasil atrai capital estrangeiro.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">📊</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Infra reduz estimativa de crescimento PIB 2026 para 2.1%</h3>
+              <div class="news-meta"><span class="news-source">Agência Brasil</span> <span>•</span> <span>2h atrás</span></div>
+              <p class="news-snippet">Revisão considera desemprego persistente e ajustes inflacionários. Governo trabalha em estímulos fiscais.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🏦</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Banco Central discute novas medidas macroprudenciais para 2026</h3>
+              <div class="news-meta"><span class="news-source">Reuters Brasil</span> <span>•</span> <span>3h atrás</span></div>
+              <p class="news-snippet">Foco em estabilidade do crédito e prevenção de bolhas. Mais regulação esperada sobre criptos.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Política -->
+    <section id="politica" class="tab-content" hidden>
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-politica">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">📜</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Lula sanciona lei de transparência orçamentária; reforça combate corrupção</h3>
+              <div class="news-meta"><span class="news-source">G1</span> <span>•</span> <span>45min atrás</span></div>
+              <p class="news-snippet">Lei obriga publicação mensal de gastos federais. Sociedade civil comemora avanço na governança.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🏛️</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Congresso aprova reforma tributária em segunda votação</h3>
+              <div class="news-meta"><span class="news-source">Câmara dos Deputados</span> <span>•</span> <span>2h atrás</span></div>
+              <p class="news-snippet">Reforma simplifica sistema fiscal e reduz alíquotas. Implementação prevista para 2027.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">⚖️</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">STF nega habeas corpus e mantém decisão de congelamento de bens</h3>
+              <div class="news-meta"><span class="news-source">STF</span> <span>•</span> <span>3h atrás</span></div>
+              <p class="news-snippet">Decisão unânime afirma legalidade de sequestro preventivo. Recurso ao pleno aguarda agenda.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🗳️</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Eleições municipais 2026 ganham momentum; pré-candidatos se posicionam</h3>
+              <div class="news-meta"><span class="news-source">Político</span> <span>•</span> <span>4h atrás</span></div>
+              <p class="news-snippet">Disputas acirradas nas principais cidades do país. Expectativa: participação recorde de eleitores.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Brasil -->
+    <section id="brasil" class="tab-content" hidden>
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-brasil">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🌳</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Amazônia enfrenta piores secas em 20 anos; Rio Negro atinge nível crítico</h3>
+              <div class="news-meta"><span class="news-source">Globo</span> <span>•</span> <span>50min atrás</span></div>
+              <p class="news-snippet">Seca extrema ameaça comunidades ribeirinhas. Pesquisadores alertam sobre tipping point irreversível.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🪶</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Índios conquistam demarcação histórica de terra no Mato Grosso</h3>
+              <div class="news-meta"><span class="news-source">IstoÉ</span> <span>•</span> <span>2h atrás</span></div>
+              <p class="news-snippet">Decisão após 30 anos de luta reconhece direito ancestral. STF valida processo de demarcação.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">📉</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Desemprego sobe para 7.2% em 12 regiões metropolitanas</h3>
+              <div class="news-meta"><span class="news-source">IBGE</span> <span>•</span> <span>3h atrás</span></div>
+              <p class="news-snippet">Economia desacelera; informalidade cresce. Governo prioriza geração de empregos formais.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🚗</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Indústria automóvel brasileira investe em eletrificação; 5 fabricantes anunciam modelos</h3>
+              <div class="news-meta"><span class="news-source">Automotive News</span> <span>•</span> <span>6h atrás</span></div>
+              <p class="news-snippet">Transição verde acelera. Brasil quer ser hub de carros elétricos da América do Sul.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Tendências -->
+    <section id="tendencias" class="tab-content" hidden>
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-tendencias">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">📱</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Novo filtro do TikTok bomba em 24h com 50M uses; empresas analisam trend</h3>
+              <div class="news-meta"><span class="news-source">TechCrunch</span> <span>•</span> <span>20min atrás</span></div>
+              <p class="news-snippet">Viral effect impulsiona criatividade. Marcas já criam campanhas; agências disputam projetos.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">😂</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Meme de Elon Musk circula internacionalmente; vira tópico trending em X</h3>
+              <div class="news-meta"><span class="news-source">Twitter Trending</span> <span>•</span> <span>1h atrás</span></div>
+              <p class="news-snippet">Humor polêmico divide opinião. Elon retuita com reação; comunidade mobilizada.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🔥</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">App de cozinha com IA ganha US$50M em funding Series B; valuation US$500M</h3>
+              <div class="news-meta"><span class="news-source">Crunchbase</span> <span>•</span> <span>2h atrás</span></div>
+              <p class="news-snippet">Investidores apostam em AI culinária. Startups de food-tech monopolizam rodadas de funding.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">⭐</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Influencer brasileira quebra recorde de seguidores: 200M em TikTok</h3>
+              <div class="news-meta"><span class="news-source">Influencer Marketing Hub</span> <span>•</span> <span>5h atrás</span></div>
+              <p class="news-snippet">Fenômeno global solidifica posição brasileira. Marcas investem bilhões em parcerias.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Tech -->
+    <section id="tech" class="tab-content" hidden>
+      <div class="section-header">
+        <h2 class="section-title">HOJE</h2>
+        <span class="section-date" id="date-tech">24 de Fevereiro</span>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🍎</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Apple lança novo MacBook com chip M4 Ultra; performance impressiona</h3>
+              <div class="news-meta"><span class="news-source">MacRumors</span> <span>•</span> <span>1h atrás</span></div>
+              <p class="news-snippet">Benchmark 40% acima do concorrente. Preço começa em $6.999.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🤖</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Google anuncia upgrade massivo em Gemini AI; novo modelo Gemini 3.0</h3>
+              <div class="news-meta"><span class="news-source">Google Blog</span> <span>•</span> <span>3h atrás</span></div>
+              <p class="news-snippet">Raciocínio avançado + multimodal. Competição com OpenAI intensifica-se.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">🔓</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Segurança: 0-day no Chrome explorado em ataques direcionados; patch urgente</h3>
+              <div class="news-meta"><span class="news-source">ZDNet</span> <span>•</span> <span>4h atrás</span></div>
+              <p class="news-snippet">Vulnerabilidade afeta 2B+ usuários. Google recomenda update imediato.</p>
+            </div>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-header">
+            <div class="news-thumbnail">⚡</div>
+            <div class="news-card-content">
+              <h3 class="news-headline">Quantumidade: IBM atinge 500-qubit quantum computer milestone</h3>
+              <div class="news-meta"><span class="news-source">IBM Newsroom</span> <span>•</span> <span>6h atrás</span></div>
+              <p class="news-snippet">Computação quântica avança. Aplicações práticas esperadas em 2-3 anos.</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
   </main>
 
   <!-- FOOTER -->
   <footer>
     <div class="footer-container">
-      <div class="footer-content">
-        <div class="footer-section">
-          <h4>Sobre</h4>
-          <p>Jornal Tatu é publicação investigativa dedicada à natureza e sustentabilidade no Brasil. Jornalismo profundo, dados verificados.</p>
-        </div>
-        <div class="footer-section">
-          <h4>Links</h4>
-          <a href="#noticias">Notícias</a>
-          <a href="#investigacoes">Investigações</a>
-          <a href="#sobre">Sobre Nós</a>
-          <a href="#">Contato</a>
-        </div>
-        <div class="footer-section">
-          <h4>Newsletter</h4>
-          <p>Receba as melhores investigações direto no seu email.</p>
-          <form class="newsletter-form">
-            <input type="email" placeholder="seu@email.com" required>
-            <button type="submit">Inscrever</button>
-          </form>
-        </div>
+      <p class="footer-text">JT © 2026. Notícias interessantes, todos os dias.</p>
+      <div class="footer-links">
+        <a href="#">Sobre</a>
+        <a href="#">Contato</a>
+        <a href="#">Privacidade</a>
+        <a href="#">Termos</a>
       </div>
-      <div class="footer-divider">
-        <div>&copy; 2026 Jornal Tatu. Todos os direitos reservados.</div>
-        <div class="social-links">
-          <a href="#" title="Twitter">𝕏</a>
-          <a href="#" title="Instagram">📷</a>
-          <a href="#" title="LinkedIn">in</a>
-        </div>
-      </div>
+      <p class="footer-text">Feito com ❤️ pra Silvia e Grazi</p>
     </div>
   </footer>
 
   <script>
-    // Smooth scroll for navigation
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        if (this.getAttribute('href') !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
-        }
-      });
+    // Set today's date
+    const today = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = today.toLocaleDateString('pt-BR', options);
+    document.getElementById('heroDate').textContent = formattedDate;
+
+    // Set dates in each section
+    document.querySelectorAll('[id^="date-"]').forEach(el => {
+      el.textContent = today.getDate() + ' de ' + 
+        ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'][today.getMonth()];
     });
 
-    // Lazy loading observer
-    if ('IntersectionObserver' in window) {
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src || img.src;
-            img.classList.add('loaded');
-            observer.unobserve(img);
-          }
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabName = tab.getAttribute('data-tab');
+        
+        // Hide all content
+        tabContents.forEach(content => {
+          content.hidden = true;
+          content.classList.remove('active');
         });
+
+        // Remove active from all tabs
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+
+        // Show selected content
+        document.getElementById(tabName).hidden = false;
+        document.getElementById(tabName).classList.add('active');
+
+        // Add active to clicked tab
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
       });
 
-      document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-        imageObserver.observe(img);
+      // Keyboard navigation
+      tab.addEventListener('keydown', (e) => {
+        const allTabs = Array.from(tabs);
+        const currentIndex = allTabs.indexOf(tab);
+        
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          const nextTab = allTabs[currentIndex + 1] || allTabs[0];
+          nextTab.click();
+          nextTab.focus();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          const prevTab = allTabs[currentIndex - 1] || allTabs[allTabs.length - 1];
+          prevTab.click();
+          prevTab.focus();
+        }
       });
-    }
-
-    // Newsletter form
-    document.querySelector('.newsletter-form')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = e.target.querySelector('input[type="email"]').value;
-      alert(`Obrigado por se inscrever com: ${email}`);
-      e.target.reset();
     });
   </script>
 </body>
