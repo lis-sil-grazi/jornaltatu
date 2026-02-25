@@ -1,562 +1,1625 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Jornal Tatu — Notícias curadas todos os dias: Bitcoin, Tecnologia, Hotelaria, Política Internacional e Brasileira">
-  <title>Jornal Tatu — Notícias de Hoje</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornal Tatu — Notícias Premium</title>
+    <meta name="description" content="Notícias curadas diariamente. Bitcoin, Hotelaria, Viagens, Economia, Política, Brasil, Tendências e Tech.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    :root {
-      --dark: #1a1a1a;
-      --gray-600: #4b5563;
-      --gray-500: #6b7280;
-      --gray-400: #9ca3af;
-      --gray-300: #d1d5db;
-      --gray-200: #e5e7eb;
-      --gray-100: #f3f4f6;
-      --white: #ffffff;
-      --accent: #0066cc;
-      --accent-dark: #0052a3;
-      --bg-light: #fafbfc;
-    }
+        :root {
+            /* Neutral Color Palette */
+            --color-dark: #1A1A1A;
+            --color-dark-secondary: #2D2D2D;
+            --color-gray-600: #4B4B4B;
+            --color-gray-400: #8A8A8A;
+            --color-gray-200: #CCCCCC;
+            --color-gray-100: #E8E8E8;
+            --color-gray-50: #F5F5F5;
+            --color-white: #FFFFFF;
+            
+            /* Accent - Subtle, professional */
+            --color-accent: #6B4423;
+            --color-accent-light: #8B5A2B;
+            --color-accent-very-light: #F5EDE0;
+            
+            /* States */
+            --color-hover: #F0F0F0;
+            --color-active: #E0E0E0;
+            --color-border: #D9D9D9;
+            --color-divider: #ECECEC;
+            
+            /* Spacing System (8px base) */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            --space-3xl: 64px;
+            
+            /* Typography Scale */
+            --text-xs: 12px;
+            --text-sm: 14px;
+            --text-base: 16px;
+            --text-lg: 18px;
+            --text-xl: 20px;
+            --text-2xl: 24px;
+            --text-3xl: 32px;
+            --text-4xl: 40px;
+            --text-5xl: 56px;
+            
+            /* Line Heights */
+            --leading-tight: 1.25;
+            --leading-snug: 1.375;
+            --leading-normal: 1.5;
+            --leading-relaxed: 1.625;
+            --leading-loose: 1.75;
+            
+            /* Z-index */
+            --z-header: 1000;
+            --z-tabs: 900;
+            --z-modal: 2000;
+            
+            /* Transitions */
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        html {
+            scroll-behavior: smooth;
+        }
 
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--white);
-      color: var(--dark);
-      line-height: 1.6;
-    }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--color-white);
+            color: var(--color-dark);
+            line-height: var(--leading-normal);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
 
-    /* HEADER */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--white);
-      border-bottom: 1px solid var(--gray-200);
-      padding: 24px 48px;
-    }
+        /* ============================================================
+           HEADER & NAVIGATION
+           ============================================================ */
 
-    .header-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 48px;
-    }
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-divider);
+            z-index: var(--z-header);
+            padding: var(--space-md) var(--space-2xl);
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
 
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-xl);
+        }
 
-    .logo-icon {
-      font-size: 32px;
-      line-height: 1;
-    }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            text-decoration: none;
+            flex-shrink: 0;
+        }
 
-    .logo-text h1 {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--dark);
-      letter-spacing: -0.5px;
-    }
+        .logo-image {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-white);
+        }
 
-    .logo-text p {
-      font-size: 12px;
-      color: var(--gray-500);
-      margin-top: 2px;
-      font-weight: 500;
-    }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+        }
 
-    /* HERO */
-    .hero {
-      padding: 80px 48px;
-      text-align: center;
-      background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-      border-bottom: 1px solid var(--gray-200);
-    }
+        .logo-text h1 {
+            font-size: var(--text-xl);
+            font-weight: 700;
+            color: var(--color-dark);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
 
-    .hero-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+        .logo-text p {
+            font-size: var(--text-xs);
+            color: var(--color-gray-400);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
 
-    .hero h2 {
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--dark);
-      margin-bottom: 16px;
-      letter-spacing: -1px;
-    }
+        .header-search {
+            flex: 1;
+            max-width: 500px;
+            display: flex;
+        }
 
-    .hero p {
-      font-size: 18px;
-      color: var(--gray-600);
-      margin-bottom: 8px;
-    }
+        .search-input-wrapper {
+            position: relative;
+            width: 100%;
+        }
 
-    .date-badge {
-      display: inline-block;
-      background: var(--accent);
-      color: var(--white);
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-top: 24px;
-    }
+        .search-input-wrapper input {
+            width: 100%;
+            padding: var(--space-sm) var(--space-md);
+            padding-left: 40px;
+            background-color: var(--color-gray-50);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: var(--text-sm);
+            color: var(--color-dark);
+            transition: background-color var(--transition-base), border-color var(--transition-base);
+        }
 
-    /* CATEGORIES */
-    .categories {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 48px 48px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
+        .search-input-wrapper input::placeholder {
+            color: var(--color-gray-400);
+        }
 
-    .category-btn {
-      padding: 12px 20px;
-      border: 2px solid var(--gray-200);
-      background: var(--white);
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gray-600);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-    }
+        .search-input-wrapper input:focus {
+            outline: none;
+            background-color: var(--color-white);
+            border-color: var(--color-accent);
+        }
 
-    .category-btn:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(0, 102, 204, 0.02);
-    }
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-gray-400);
+            font-size: 16px;
+            pointer-events: none;
+        }
 
-    .category-btn.active {
-      background: var(--accent);
-      color: var(--white);
-      border-color: var(--accent);
-    }
+        .header-actions {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
 
-    /* CONTENT */
-    .content-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 48px 80px 48px;
-    }
+        .btn-secondary {
+            padding: var(--space-sm) var(--space-lg);
+            background-color: transparent;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-dark);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            white-space: nowrap;
+        }
 
-    .section-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--dark);
-      margin: 64px 0 32px 0;
-      padding-bottom: 16px;
-      border-bottom: 2px solid var(--gray-200);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .btn-secondary:hover {
+            background-color: var(--color-hover);
+            border-color: var(--color-gray-400);
+        }
 
-    .section-icon {
-      font-size: 28px;
-    }
+        .btn-primary {
+            padding: var(--space-sm) var(--space-lg);
+            background-color: var(--color-accent);
+            border: none;
+            border-radius: 6px;
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-white);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            white-space: nowrap;
+        }
 
-    .news-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 24px;
-      margin-bottom: 64px;
-    }
+        .btn-primary:hover {
+            background-color: var(--color-accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 68, 35, 0.15);
+        }
 
-    .news-card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: 8px;
-      padding: 24px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
+        /* ============================================================
+           HERO SECTION
+           ============================================================ */
 
-    .news-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.08);
-      transform: translateY(-2px);
-    }
+        .hero {
+            background: linear-gradient(135deg, var(--color-white) 0%, var(--color-gray-50) 100%);
+            padding: var(--space-3xl) var(--space-2xl);
+            border-bottom: 1px solid var(--color-divider);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .news-category {
-      display: inline-block;
-      background: rgba(0, 102, 204, 0.1);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--color-accent-very-light) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
 
-    .news-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 12px;
-      line-height: 1.4;
-    }
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
 
-    .news-card:hover .news-title {
-      color: var(--accent);
-    }
+        .hero-content {
+            max-width: 800px;
+        }
 
-    .news-excerpt {
-      font-size: 14px;
-      color: var(--gray-600);
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
+        .hero-label {
+            display: inline-block;
+            font-size: var(--text-xs);
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--space-md);
+            padding: var(--space-xs) var(--space-md);
+            background-color: var(--color-accent-very-light);
+            border-radius: 4px;
+        }
 
-    .news-source {
-      font-size: 12px;
-      color: var(--gray-500);
-      border-top: 1px solid var(--gray-200);
-      padding-top: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .hero h1 {
+            font-size: var(--text-5xl);
+            font-weight: 800;
+            color: var(--color-dark);
+            line-height: var(--leading-tight);
+            margin-bottom: var(--space-md);
+            letter-spacing: -1px;
+        }
 
-    /* EMPTY STATE */
-    .empty-state {
-      text-align: center;
-      padding: 60px 48px;
-      color: var(--gray-500);
-    }
+        .hero-tagline {
+            font-size: var(--text-xl);
+            color: var(--color-gray-600);
+            line-height: var(--leading-relaxed);
+            margin-bottom: var(--space-lg);
+            font-weight: 400;
+        }
 
-    .empty-state p {
-      font-size: 16px;
-      margin-bottom: 8px;
-    }
+        .hero-meta {
+            display: flex;
+            gap: var(--space-lg);
+            font-size: var(--text-sm);
+            color: var(--color-gray-400);
+        }
 
-    /* FOOTER */
-    footer {
-      background: var(--dark);
-      color: var(--white);
-      padding: 48px;
-      text-align: center;
-      border-top: 1px solid var(--gray-200);
-      margin-top: 80px;
-    }
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
 
-    .footer-content {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        /* ============================================================
+           FEATURED STORIES SECTION
+           ============================================================ */
 
-    .footer-text {
-      font-size: 14px;
-      margin-bottom: 8px;
-      line-height: 1.6;
-    }
+        .featured-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-2xl);
+            border-bottom: 1px solid var(--color-divider);
+        }
 
-    .footer-meta {
-      font-size: 12px;
-      color: var(--gray-500);
-      margin-top: 16px;
-    }
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-bottom: var(--space-lg);
+            letter-spacing: -0.5px;
+        }
 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      header {
-        padding: 16px 24px;
-      }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+        }
 
-      .header-container {
-        gap: 24px;
-      }
+        .featured-primary {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-lg);
+            padding: var(--space-lg);
+            background-color: var(--color-accent-very-light);
+            border-radius: 12px;
+            border: 1px solid var(--color-border);
+            transition: all var(--transition-base);
+            cursor: pointer;
+        }
 
-      .logo-text h1 {
-        font-size: 18px;
-      }
+        .featured-primary:hover {
+            border-color: var(--color-accent);
+            box-shadow: 0 8px 20px rgba(107, 68, 35, 0.1);
+            transform: translateY(-2px);
+        }
 
-      .hero {
-        padding: 48px 24px;
-      }
+        .featured-primary-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: rgba(255, 255, 255, 0.3);
+        }
 
-      .hero h2 {
-        font-size: 32px;
-      }
+        .featured-primary-content {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
 
-      .hero p {
-        font-size: 16px;
-      }
+        .featured-badge {
+            display: inline-block;
+            width: fit-content;
+            padding: var(--space-xs) var(--space-md);
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            font-size: var(--text-xs);
+            font-weight: 700;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-      .categories {
-        padding: 32px 24px;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 12px;
-      }
+        .featured-primary h3 {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--color-dark);
+            line-height: var(--leading-snug);
+            letter-spacing: -0.5px;
+        }
 
-      .category-btn {
-        padding: 10px 16px;
-        font-size: 12px;
-      }
+        .featured-primary-excerpt {
+            font-size: var(--text-sm);
+            color: var(--color-gray-600);
+            line-height: var(--leading-normal);
+        }
 
-      .content-container {
-        padding: 0 24px 60px 24px;
-      }
+        .featured-secondary {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
 
-      .section-title {
-        font-size: 22px;
-        margin: 48px 0 24px 0;
-      }
+        .featured-card {
+            padding: var(--space-lg);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            transition: all var(--transition-base);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+        }
 
-      .news-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
+        .featured-card:hover {
+            border-color: var(--color-accent);
+            background-color: var(--color-hover);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
 
-      .news-card {
-        padding: 20px;
-      }
+        .featured-card h4 {
+            font-size: var(--text-lg);
+            font-weight: 600;
+            color: var(--color-dark);
+            line-height: var(--leading-snug);
+            letter-spacing: -0.25px;
+        }
 
-      footer {
-        padding: 32px 24px;
-      }
-    }
-  </style>
+        .featured-card p {
+            font-size: var(--text-sm);
+            color: var(--color-gray-600);
+            line-height: var(--leading-normal);
+        }
+
+        .featured-card-meta {
+            display: flex;
+            gap: var(--space-md);
+            font-size: var(--text-xs);
+            color: var(--color-gray-400);
+        }
+
+        /* ============================================================
+           TABS & NAVIGATION
+           ============================================================ */
+
+        .tabs-container {
+            position: sticky;
+            top: 73px;
+            background-color: var(--color-white);
+            border-bottom: 1px solid var(--color-divider);
+            z-index: var(--z-tabs);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .tabs-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            padding: 0 var(--space-2xl);
+        }
+
+        .tab-button {
+            padding: var(--space-lg) var(--space-md);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-size: var(--text-base);
+            font-weight: 600;
+            color: var(--color-gray-600);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            white-space: nowrap;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .tab-button:hover {
+            color: var(--color-dark);
+        }
+
+        .tab-button.active {
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
+        }
+
+        .tab-button:focus {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+
+        /* ============================================================
+           MAIN CONTENT AREA
+           ============================================================ */
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--space-3xl) var(--space-2xl);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn var(--transition-base);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-header {
+            margin-bottom: var(--space-2xl);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: var(--space-lg);
+        }
+
+        .content-header-left h2 {
+            font-size: var(--text-3xl);
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.5px;
+        }
+
+        .content-header-meta {
+            font-size: var(--text-sm);
+            color: var(--color-gray-400);
+        }
+
+        .content-header-right {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .filter-button {
+            padding: var(--space-sm) var(--space-lg);
+            background-color: var(--color-gray-50);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-size: var(--text-sm);
+            font-weight: 500;
+            color: var(--color-gray-600);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            white-space: nowrap;
+        }
+
+        .filter-button:hover {
+            background-color: var(--color-hover);
+            border-color: var(--color-gray-400);
+        }
+
+        .filter-button.active {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            border-color: var(--color-accent);
+        }
+
+        /* ============================================================
+           NEWS GRID & CARDS
+           ============================================================ */
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-lg);
+            margin-bottom: var(--space-3xl);
+        }
+
+        .news-card {
+            background-color: var(--color-white);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: var(--space-lg);
+            transition: all var(--transition-base);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            overflow: hidden;
+        }
+
+        .news-card:hover {
+            border-color: var(--color-accent);
+            background-color: var(--color-hover);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .news-card-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--color-gray-100) 0%, var(--color-gray-50) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            color: var(--color-gray-200);
+            margin: calc(var(--space-lg) * -1) calc(var(--space-lg) * -1) 0 calc(var(--space-lg) * -1);
+            margin-bottom: var(--space-md);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .news-card-category {
+            display: inline-block;
+            font-size: var(--text-xs);
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: var(--space-xs) var(--space-sm);
+            background-color: var(--color-accent-very-light);
+            border-radius: 3px;
+            width: fit-content;
+        }
+
+        .news-card h3 {
+            font-size: var(--text-lg);
+            font-weight: 700;
+            color: var(--color-dark);
+            line-height: var(--leading-snug);
+            letter-spacing: -0.25px;
+            transition: color var(--transition-base);
+        }
+
+        .news-card:hover h3 {
+            color: var(--color-accent);
+        }
+
+        .news-card-meta {
+            display: flex;
+            gap: var(--space-md);
+            font-size: var(--text-xs);
+            color: var(--color-gray-400);
+        }
+
+        .news-card-meta-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .news-card-excerpt {
+            font-size: var(--text-sm);
+            color: var(--color-gray-600);
+            line-height: var(--leading-normal);
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-md);
+            border-top: 1px solid var(--color-divider);
+        }
+
+        .read-more {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .read-more:hover {
+            gap: var(--space-sm);
+        }
+
+        .read-more::after {
+            content: '→';
+            transition: transform var(--transition-base);
+        }
+
+        .news-card:hover .read-more::after {
+            transform: translateX(4px);
+        }
+
+        .news-card-engagement {
+            display: flex;
+            gap: var(--space-sm);
+            font-size: var(--text-xs);
+            color: var(--color-gray-400);
+        }
+
+        .engagement-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        /* ============================================================
+           TRENDING SIDEBAR
+           ============================================================ */
+
+        .content-with-sidebar {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: var(--space-2xl);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 150px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background-color: var(--color-gray-50);
+            border: 1px solid var(--color-border);
+            border-radius: 10px;
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .sidebar-title {
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--color-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-md);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .trending-item {
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .trending-item:hover {
+            background-color: var(--color-white);
+            padding-left: var(--space-md);
+            margin-left: calc(var(--space-md) * -1);
+            padding-right: var(--space-md);
+            margin-right: calc(var(--space-md) * -1);
+            border-radius: 4px;
+        }
+
+        .trending-rank {
+            display: inline-block;
+            font-size: var(--text-xs);
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 2px;
+        }
+
+        .trending-item p {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--color-dark);
+            line-height: var(--leading-snug);
+        }
+
+        .trending-item-meta {
+            font-size: var(--text-xs);
+            color: var(--color-gray-400);
+            margin-top: var(--space-xs);
+        }
+
+        /* ============================================================
+           NEWSLETTER & CTA
+           ============================================================ */
+
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--color-accent-very-light) 0%, var(--color-white) 100%);
+            border: 1px solid var(--color-accent);
+            border-radius: 12px;
+            padding: var(--space-2xl);
+            text-align: center;
+            margin: var(--space-3xl) 0;
+        }
+
+        .newsletter-section h3 {
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--color-dark);
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.5px;
+        }
+
+        .newsletter-section p {
+            font-size: var(--text-base);
+            color: var(--color-gray-600);
+            margin-bottom: var(--space-lg);
+            line-height: var(--leading-normal);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--space-md);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: var(--space-sm) var(--space-md);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: var(--text-sm);
+            transition: border-color var(--transition-base);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .newsletter-form button {
+            padding: var(--space-sm) var(--space-lg);
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            white-space: nowrap;
+        }
+
+        .newsletter-form button:hover {
+            background-color: var(--color-accent-light);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+
+        footer {
+            background-color: var(--color-dark);
+            color: var(--color-gray-200);
+            padding: var(--space-3xl) var(--space-2xl);
+            border-top: 1px solid var(--color-dark-secondary);
+            margin-top: var(--space-3xl);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .footer-section h4 {
+            font-size: var(--text-sm);
+            font-weight: 700;
+            color: var(--color-white);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: var(--space-md);
+        }
+
+        .footer-section a {
+            color: var(--color-gray-200);
+            text-decoration: none;
+            font-size: var(--text-sm);
+            transition: color var(--transition-base);
+        }
+
+        .footer-section a:hover {
+            color: var(--color-white);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: var(--space-2xl);
+            border-top: 1px solid var(--color-dark-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--text-sm);
+        }
+
+        .footer-copyright {
+            color: var(--color-gray-400);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: var(--space-lg);
+        }
+
+        .footer-social a {
+            color: var(--color-gray-200);
+            text-decoration: none;
+            transition: color var(--transition-base);
+            font-size: 18px;
+        }
+
+        .footer-social a:hover {
+            color: var(--color-accent-light);
+        }
+
+        /* ============================================================
+           RESPONSIVE DESIGN
+           ============================================================ */
+
+        @media (max-width: 1200px) {
+            .header-container {
+                gap: var(--space-lg);
+            }
+
+            .header-search {
+                max-width: 300px;
+            }
+
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-with-sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-lg);
+                position: static;
+                top: auto;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: var(--space-md);
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: var(--space-md);
+            }
+
+            .header-search {
+                max-width: 100%;
+                order: 3;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .btn-secondary {
+                flex: 1;
+            }
+
+            .hero {
+                padding: var(--space-2xl) var(--space-md);
+            }
+
+            .hero h1 {
+                font-size: var(--text-4xl);
+            }
+
+            .hero-tagline {
+                font-size: var(--text-base);
+            }
+
+            .tabs-wrapper {
+                padding: 0 var(--space-md);
+                gap: 0;
+            }
+
+            .tab-button {
+                padding: var(--space-md) var(--space-sm);
+                font-size: var(--text-sm);
+            }
+
+            main {
+                padding: var(--space-2xl) var(--space-md);
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: var(--space-lg);
+                text-align: center;
+            }
+
+            .featured-grid {
+                gap: var(--space-md);
+            }
+
+            .featured-card {
+                padding: var(--space-md);
+            }
+
+            .content-header {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: var(--text-3xl);
+            }
+
+            .hero-meta {
+                flex-direction: column;
+                gap: var(--space-sm);
+            }
+
+            .section-title {
+                font-size: var(--text-xl);
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .logo-text h1 {
+                font-size: var(--text-base);
+            }
+
+            .hero-label {
+                font-size: 10px;
+            }
+        }
+
+        /* ============================================================
+           ACCESSIBILITY
+           ============================================================ */
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        *:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-white: #0F0F0F;
+                --color-dark: #F5F5F5;
+                --color-hover: #1A1A1A;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="header-container">
+            <a href="/" class="header-logo">
+                <div class="logo-image">🦔</div>
+                <div class="logo-text">
+                    <h1>Jornal Tatu</h1>
+                    <p>Notícias Curadas</p>
+                </div>
+            </a>
+            
+            <div class="header-search">
+                <div class="search-input-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="search" placeholder="Pesquisar notícias..." aria-label="Pesquisar notícias" />
+                </div>
+            </div>
 
-<!-- HEADER -->
-<header>
-  <div class="header-container">
-    <div class="logo-section">
-      <div class="logo-icon">🐢</div>
-      <div class="logo-text">
-        <h1>Jornal Tatu</h1>
-        <p>Notícias curadas por Silvia & Grazi</p>
-      </div>
-    </div>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <h2>Notícias do Dia</h2>
-    <p>Bitcoin, Tecnologia, Hotelaria, Política Internacional & Brasil</p>
-    <span class="date-badge" id="todayDate"></span>
-  </div>
-</section>
-
-<!-- CATEGORIES -->
-<div class="categories">
-  <button class="category-btn active" data-category="all">Todos</button>
-  <button class="category-btn" data-category="bitcoin">🔵 Bitcoin</button>
-  <button class="category-btn" data-category="tech">🤖 Tecnologia & IA</button>
-  <button class="category-btn" data-category="hospitality">🏨 Hotelaria</button>
-  <button class="category-btn" data-category="intl-politics">🌍 Política Internacional</button>
-  <button class="category-btn" data-category="br-politics">🇧🇷 Política Brasileira</button>
-</div>
-
-<!-- CONTENT -->
-<div class="content-container">
-  
-  <!-- BITCOIN -->
-  <section id="bitcoin-section">
-    <h2 class="section-title"><span class="section-icon">🔵</span> Bitcoin & Criptomoedas</h2>
-    <div class="news-grid">
-      <div class="news-card">
-        <span class="news-category">Bitcoin</span>
-        <h3 class="news-title">BTC supera resistência de $67k em rally especulativo</h3>
-        <p class="news-excerpt">Bitcoin ultrapassa a marca de $67 mil dólares em movimento ascendente, impulsionado por otimismo regulatório e entrada institucional.</p>
-        <div class="news-source">
-          <span>CoinDesk</span>
-          <span>Hoje</span>
+            <div class="header-actions">
+                <button class="btn-secondary">Sign In</button>
+                <button class="btn-primary">Subscribe</button>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- TECNOLOGIA -->
-  <section id="tech-section">
-    <h2 class="section-title"><span class="section-icon">🤖</span> Tecnologia & IA</h2>
-    <div class="news-grid">
-      <div class="news-card">
-        <span class="news-category">IA</span>
-        <h3 class="news-title">OpenAI anuncia modelo com reasoning avançado</h3>
-        <p class="news-excerpt">Novo modelo de IA com capacidade de raciocínio complexo promete revolucionar automação de tarefas profissionais.</p>
-        <div class="news-source">
-          <span>The Verge</span>
-          <span>Hoje</span>
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="hero-label">Notícias de Hoje</span>
+                <h1>Informação Premium, Todos os Dias</h1>
+                <p class="hero-tagline">
+                    Curadoria diária de notícias sobre Bitcoin, Hotelaria, Viagens, Economia, 
+                    Política, Brasil, Tendências e Tech. Análise profunda, sem ruído.
+                </p>
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <span>📅</span>
+                        <span id="current-date">Terça, 25 de Fevereiro de 2026</span>
+                    </div>
+                    <div class="hero-meta-item">
+                        <span>⏱️</span>
+                        <span id="current-time">Atualizado às 22:18</span>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="news-card">
-        <span class="news-category">Tech</span>
-        <h3 class="news-title">Apple investe em semicondutores made in Vietnam</h3>
-        <p class="news-excerpt">Gigante de Cupertino diversifica supply chain com nova fábrica no sudeste asiático, reduzindo dependência da China.</p>
-        <div class="news-source">
-          <span>Reuters</span>
-          <span>Hoje</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- HOTELARIA -->
-  <section id="hospitality-section">
-    <h2 class="section-title"><span class="section-icon">🏨</span> Hotelaria & Turismo</h2>
-    <div class="news-grid">
-      <div class="news-card">
-        <span class="news-category">Hotelaria</span>
-        <h3 class="news-title">Marriott expande portfolio no Brasil com 15 propriedades</h3>
-        <p class="news-excerpt">Maior rede hoteleira do mundo planeja investimento de $200M em 3 anos para crescimento no mercado brasileiro.</p>
-        <div class="news-source">
-          <span>Hospitality Matters</span>
-          <span>Hoje</span>
-        </div>
-      </div>
-      <div class="news-card">
-        <span class="news-category">Turismo</span>
-        <h3 class="news-title">Turismo de luxo cresce 34% em Portugal após pandemia</h3>
-        <p class="news-excerpt">Lisboa e Algarve registram ocupação hoteleira acima de 85% em temporada alta, impulsionando economia regional.</p>
-        <div class="news-source">
-          <span>Tourism Board PT</span>
-          <span>Hoje</span>
-        </div>
-      </div>
-    </div>
-  </section>
+    <section class="featured-section">
+        <h2 class="section-title">Destaques de Hoje</h2>
+        <div class="featured-grid">
+            <article class="featured-primary">
+                <div class="featured-primary-image">₿</div>
+                <div class="featured-primary-content">
+                    <span class="featured-badge">Bitcoin</span>
+                    <h3>Bitcoin ultrapassa US$100k com entrada massiva de instituições</h3>
+                    <p class="featured-primary-excerpt">
+                        Criptomoeda alcança marco histórico impulsionada por fundos institucionais 
+                        e ETFs. Analistas apontam possível continuação da tendência altista.
+                    </p>
+                    <p class="featured-card-meta">
+                        <span>Reuters</span> • <span>2h atrás</span>
+                    </p>
+                </div>
+            </article>
 
-  <!-- POLÍTICA INTERNACIONAL -->
-  <section id="intl-politics-section">
-    <h2 class="section-title"><span class="section-icon">🌍</span> Política Internacional</h2>
-    <div class="news-grid">
-      <div class="news-card">
-        <span class="news-category">UE</span>
-        <h3 class="news-title">Europa enfrenta pressões sobre defesa com eleição de Trump</h3>
-        <p class="news-excerpt">Líderes europeus discutem aumento de gasto em defesa e independência estratégica em contexto de mudança política americana.</p>
-        <div class="news-source">
-          <span>DW News</span>
-          <span>Hoje</span>
-        </div>
-      </div>
-      <div class="news-card">
-        <span class="news-category">Ásia</span>
-        <h3 class="news-title">China reduz taxas de juros para estimular economia</h3>
-        <p class="news-excerpt">Banco Central Chinês anuncia medidas de relaxamento monetário para enfrentar desaceleração econômica.</p>
-        <div class="news-source">
-          <span>Bloomberg</span>
-          <span>Hoje</span>
-        </div>
-      </div>
-      <div class="news-card">
-        <span class="news-category">Oriente Médio</span>
-        <h3 class="news-title">Negociações de paz retomadas em conflito regional</h3>
-        <p class="news-excerpt">Diplomacia internacional intensifica esforços por resolução de disputa que afeta mercados globais.</p>
-        <div class="news-source">
-          <span>Al Jazeera</span>
-          <span>Hoje</span>
-        </div>
-      </div>
-    </div>
-  </section>
+            <div class="featured-secondary">
+                <article class="featured-card">
+                    <h4>Reforma tributária é aprovada em segunda votação no Congresso</h4>
+                    <p>Texto com alíquota unificada de IVA em 27% segue para sanção presidencial.</p>
+                    <div class="featured-card-meta">
+                        <span>Câmara dos Deputados</span> • <span>2h atrás</span>
+                    </div>
+                </article>
 
-  <!-- POLÍTICA BRASILEIRA -->
-  <section id="br-politics-section">
-    <h2 class="section-title"><span class="section-icon">🇧🇷</span> Política Brasileira</h2>
-    <div class="news-grid">
-      <div class="news-card">
-        <span class="news-category">Legislativo</span>
-        <h3 class="news-title">Congresso vota reforma tributária em sessão histórica</h3>
-        <p class="news-excerpt">Aprovação da reforma simplifica sistema de impostos e projeta aumento de competitividade para setor produtivo nacional.</p>
-        <div class="news-source">
-          <span>Folha de S.Paulo</span>
-          <span>Hoje</span>
+                <article class="featured-card">
+                    <h4>Ibovespa sobe 2.5% com bancos em alta</h4>
+                    <p>Bolsa fecha aos 135 mil pontos, melhor desempenho em três meses.</p>
+                    <div class="featured-card-meta">
+                        <span>Valor Econômico</span> • <span>30min atrás</span>
+                    </div>
+                </article>
+            </div>
         </div>
-      </div>
-      <div class="news-card">
-        <span class="news-category">Executivo</span>
-        <h3 class="news-title">Governo anuncia novo pacote de investimentos em infraestrutura</h3>
-        <p class="news-excerpt">Plano de R$50 bilhões visa modernizar rodovias, ferrovias e portos para elevar produtividade nacional.</p>
-        <div class="news-source">
-          <span>Valor Econômico</span>
-          <span>Hoje</span>
+    </section>
+
+    <nav class="tabs-container" role="tablist" aria-label="Categorias de notícias">
+        <div class="tabs-wrapper">
+            <button class="tab-button active" role="tab" aria-selected="true" data-tab="bitcoin">Bitcoin</button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="hotelaria">Hotelaria</button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="viagens">Viagens</button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="economia">Economia</button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="politica">Política</button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="brasil">Brasil</button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="tendencias">Tendências</button>
+            <button class="tab-button" role="tab" aria-selected="false" data-tab="tech">Tech</button>
         </div>
-      </div>
-      <div class="news-card">
-        <span class="news-category">Eleições</span>
-        <h3 class="news-title">Pesquisa aponta mudanças em preferências eleitorais 2026</h3>
-        <p class="news-excerpt">Novo levantamento revela dinâmicas políticas em mudança com vista às próximas eleições presidenciais.</p>
-        <div class="news-source">
-          <span>Globo</span>
-          <span>Hoje</span>
+    </nav>
+
+    <main>
+        <section id="bitcoin" class="tab-content active" role="tabpanel">
+            <div class="content-with-sidebar">
+                <div>
+                    <div class="content-header">
+                        <div class="content-header-left">
+                            <h2>Bitcoin</h2>
+                            <p class="content-header-meta">Notícias sobre criptomoedas e blockchain</p>
+                        </div>
+                        <div class="content-header-right">
+                            <button class="filter-button active">Tudo</button>
+                            <button class="filter-button">Esta semana</button>
+                        </div>
+                    </div>
+
+                    <div class="news-grid">
+                        <article class="news-card">
+                            <div class="news-card-image">₿</div>
+                            <span class="news-card-category">Análise</span>
+                            <h3>Bitcoin bate US$100k; analistas apontam corrida de instituições</h3>
+                            <p class="news-card-excerpt">Criptomoeda alcança marco histórico impulsionada por entrada massiva de fundos institucionais e ETFs.</p>
+                            <div class="news-card-meta">
+                                <div class="news-card-meta-item">Reuters</div>
+                                <div class="news-card-meta-item">2h atrás</div>
+                            </div>
+                            <div class="news-card-footer">
+                                <a href="#" class="read-more">Ler artigo</a>
+                                <div class="news-card-engagement">
+                                    <div class="engagement-item">👍 324</div>
+                                    <div class="engagement-item">💬 42</div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-card-image">📊</div>
+                            <span class="news-card-category">Mercado</span>
+                            <h3>Macro News: Fed sinaliza pause em altas de juros</h3>
+                            <p class="news-card-excerpt">Decisão do banco central americano anima mercado cripto com expectativa de mais liquidez.</p>
+                            <div class="news-card-meta">
+                                <div class="news-card-meta-item">Bloomberg</div>
+                                <div class="news-card-meta-item">4h atrás</div>
+                            </div>
+                            <div class="news-card-footer">
+                                <a href="#" class="read-more">Ler artigo</a>
+                                <div class="news-card-engagement">
+                                    <div class="engagement-item">👍 156</div>
+                                    <div class="engagement-item">💬 18</div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-card-image">🇸🇻</div>
+                            <span class="news-card-category">Adoção</span>
+                            <h3>El Salvador amplia holdings de BTC com nova compra</h3>
+                            <p class="news-card-excerpt">País adiciona 100 bitcoins às reservas nacionais, totalizando agora 5.800 BTC.</p>
+                            <div class="news-card-meta">
+                                <div class="news-card-meta-item">CoinTelegraph</div>
+                                <div class="news-card-meta-item">6h atrás</div>
+                            </div>
+                            <div class="news-card-footer">
+                                <a href="#" class="read-more">Ler artigo</a>
+                                <div class="news-card-engagement">
+                                    <div class="engagement-item">👍 521</div>
+                                    <div class="engagement-item">💬 67</div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-card-image">Ξ</div>
+                            <span class="news-card-category">Tech</span>
+                            <h3>Ethereum ativa upgrade Dencun com sucesso</h3>
+                            <p class="news-card-excerpt">Atualização promete reduzir taxas de transação em até 90% para Layer 2s.</p>
+                            <div class="news-card-meta">
+                                <div class="news-card-meta-item">CoinDesk</div>
+                                <div class="news-card-meta-item">5h atrás</div>
+                            </div>
+                            <div class="news-card-footer">
+                                <a href="#" class="read-more">Ler artigo</a>
+                                <div class="news-card-engagement">
+                                    <div class="engagement-item">👍 389</div>
+                                    <div class="engagement-item">💬 34</div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-card-image">⛏️</div>
+                            <span class="news-card-category">Indústria</span>
+                            <h3>Mineradoras de Bitcoin reportam lucros recordes no Q1</h3>
+                            <p class="news-card-excerpt">Marathon Digital e Riot Platforms lideram ganhos com crescimento de 300% year-over-year.</p>
+                            <div class="news-card-meta">
+                                <div class="news-card-meta-item">The Block</div>
+                                <div class="news-card-meta-item">7h atrás</div>
+                            </div>
+                            <div class="news-card-footer">
+                                <a href="#" class="read-more">Ler artigo</a>
+                                <div class="news-card-engagement">
+                                    <div class="engagement-item">👍 234</div>
+                                    <div class="engagement-item">💬 28</div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="news-card">
+                            <div class="news-card-image">🔐</div>
+                            <span class="news-card-category">Segurança</span>
+                            <h3>Hackers roubam US$150M em ataque a exchange asiática</h3>
+                            <p class="news-card-excerpt">Wallets de usuários foram comprometidas em ataque sofisticado. Exchange anuncia reembolso.</p>
+                            <div class="news-card-meta">
+                                <div class="news-card-meta-item">ZDNet</div>
+                                <div class="news-card-meta-item">3h atrás</div>
+                            </div>
+                            <div class="news-card-footer">
+                                <a href="#" class="read-more">Ler artigo</a>
+                                <div class="news-card-engagement">
+                                    <div class="engagement-item">👍 612</div>
+                                    <div class="engagement-item">💬 89</div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Em Alta</h3>
+                        <div class="trending-item">
+                            <div class="trending-rank">#1</div>
+                            <p>Bitcoin ultrapassa US$100k</p>
+                            <div class="trending-item-meta">8.2k posts</div>
+                        </div>
+                        <div class="trending-item">
+                            <div class="trending-rank">#2</div>
+                            <p>Ethereum upgrade Dencun</p>
+                            <div class="trending-item-meta">3.4k posts</div>
+                        </div>
+                        <div class="trending-item">
+                            <div class="trending-rank">#3</div>
+                            <p>El Salvador compra mais BTC</p>
+                            <div class="trending-item-meta">2.1k posts</div>
+                        </div>
+                        <div class="trending-item">
+                            <div class="trending-rank">#4</div>
+                            <p>Fed pausa altas de juros</p>
+                            <div class="trending-item-meta">1.9k posts</div>
+                        </div>
+                        <div class="trending-item">
+                            <div class="trending-rank">#5</div>
+                            <p>Hackers roubam US$150M</p>
+                            <div class="trending-item-meta">1.6k posts</div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h3 class="sidebar-title">Newsletter</h3>
+                        <p style="font-size: var(--text-sm); color: var(--color-gray-600); margin-bottom: var(--space-lg);">
+                            Receba as melhores notícias sobre cripto direto na sua inbox.
+                        </p>
+                        <form class="newsletter-form" style="flex-direction: column;">
+                            <input type="email" placeholder="seu@email.com" />
+                            <button type="submit" class="btn-primary">Inscrever</button>
+                        </form>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="hotelaria" class="tab-content" role="tabpanel">
+            <div class="content-header">
+                <div class="content-header-left">
+                    <h2>Hotelaria</h2>
+                    <p class="content-header-meta">Notícias sobre hospitalidade e turismo</p>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--color-gray-400); padding: var(--space-3xl);">Notícias de hotelaria...</p>
+        </section>
+
+        <section id="viagens" class="tab-content" role="tabpanel">
+            <div class="content-header">
+                <div class="content-header-left">
+                    <h2>Viagens</h2>
+                    <p class="content-header-meta">Notícias sobre turismo e transporte</p>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--color-gray-400); padding: var(--space-3xl);">Notícias de viagens...</p>
+        </section>
+
+        <section id="economia" class="tab-content" role="tabpanel">
+            <div class="content-header">
+                <div class="content-header-left">
+                    <h2>Economia</h2>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--color-gray-400); padding: var(--space-3xl);">Notícias de economia...</p>
+        </section>
+
+        <section id="politica" class="tab-content" role="tabpanel">
+            <div class="content-header">
+                <div class="content-header-left">
+                    <h2>Política</h2>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--color-gray-400); padding: var(--space-3xl);">Notícias de política...</p>
+        </section>
+
+        <section id="brasil" class="tab-content" role="tabpanel">
+            <div class="content-header">
+                <div class="content-header-left">
+                    <h2>Brasil</h2>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--color-gray-400); padding: var(--space-3xl);">Notícias de Brasil...</p>
+        </section>
+
+        <section id="tendencias" class="tab-content" role="tabpanel">
+            <div class="content-header">
+                <div class="content-header-left">
+                    <h2>Tendências</h2>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--color-gray-400); padding: var(--space-3xl);">Notícias de tendências...</p>
+        </section>
+
+        <section id="tech" class="tab-content" role="tabpanel">
+            <div class="content-header">
+                <div class="content-header-left">
+                    <h2>Tech</h2>
+                </div>
+            </div>
+            <p style="text-align: center; color: var(--color-gray-400); padding: var(--space-3xl);">Notícias de tech...</p>
+        </section>
+
+        <section class="newsletter-section">
+            <h3>Receba o melhor do Jornal Tatu na sua inbox</h3>
+            <p>Curadoria diária de notícias premium. Sem spam, sem clickbait. Cancelar quando quiser.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="seu@email.com" required />
+                <button type="submit" class="btn-primary">Inscrever</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Sobre</h4>
+                <ul>
+                    <li><a href="#">Sobre o Jornal Tatu</a></li>
+                    <li><a href="#">Nossa missão</a></li>
+                    <li><a href="#">Equipe</a></li>
+                    <li><a href="#">Carreira</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">Podcast</a></li>
+                    <li><a href="#">Análises</a></li>
+                    <li><a href="#">Guias</a></li>
+                    <li><a href="#">API</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Comunidade</h4>
+                <ul>
+                    <li><a href="#">Fórum</a></li>
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Política de Privacidade</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Isenção de Responsabilidade</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-</div>
+        <div class="footer-bottom">
+            <p class="footer-copyright">© 2026 Jornal Tatu. Todos os direitos reservados.</p>
+            <div class="footer-social">
+                <a href="#" aria-label="Twitter" title="Twitter">𝕏</a>
+                <a href="#" aria-label="LinkedIn" title="LinkedIn">in</a>
+                <a href="#" aria-label="Email" title="Email">@</a>
+            </div>
+        </div>
+    </footer>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-content">
-    <p class="footer-text">🐢 <strong>Jornal Tatu</strong> — Um espaço curado para notícias que importam</p>
-    <p class="footer-text">Atualizado diariamente com as melhores histórias de Bitcoin, Tecnologia, Hotelaria, Política Internacional e Brasil</p>
-    <p class="footer-meta">Feito com ❤️ por Silvia & Grazi | © 2026 Jornal Tatu. Todos os direitos reservados.</p>
-  </div>
-</footer>
+    <script>
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
 
-<script>
-  // Set today's date
-  function updateDate() {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const today = new Date().toLocaleDateString('pt-BR', options);
-    document.getElementById('todayDate').textContent = `📅 ${today}`;
-  }
-  updateDate();
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
+                tabContents.forEach(content => content.classList.remove('active'));
 
-  // Category filter
-  document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      const category = this.dataset.category;
-      
-      // Update active state
-      document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      
-      // Filter sections (for future dynamic content)
-      if (category === 'all') {
-        document.querySelectorAll('section[id$="-section"]').forEach(s => s.style.display = 'block');
-      } else {
-        document.querySelectorAll('section[id$="-section"]').forEach(s => {
-          if (s.id === `${category}-section`) {
-            s.style.display = 'block';
-          } else {
-            s.style.display = 'none';
-          }
+                button.classList.add('active');
+                button.setAttribute('aria-selected', 'true');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId)?.classList.add('active');
+            });
+
+            button.addEventListener('keydown', (e) => {
+                const currentIndex = Array.from(tabButtons).indexOf(button);
+                let newIndex;
+
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    newIndex = (currentIndex + 1) % tabButtons.length;
+                    tabButtons[newIndex].focus();
+                    tabButtons[newIndex].click();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    newIndex = (currentIndex - 1 + tabButtons.length) % tabButtons.length;
+                    tabButtons[newIndex].focus();
+                    tabButtons[newIndex].click();
+                } else if (e.key === 'Home') {
+                    e.preventDefault();
+                    tabButtons[0].focus();
+                    tabButtons[0].click();
+                } else if (e.key === 'End') {
+                    e.preventDefault();
+                    tabButtons[tabButtons.length - 1].focus();
+                    tabButtons[tabButtons.length - 1].click();
+                }
+            });
         });
-      }
-    });
-  });
-</script>
 
+        function updateDateTime() {
+            const now = new Date();
+            const dateFormatter = new Intl.DateTimeFormat('pt-BR', {
+                weekday: 'long',
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+            const timeFormatter = new Intl.DateTimeFormat('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            document.getElementById('current-date').textContent = dateFormatter.format(now);
+            document.getElementById('current-time').textContent = `Atualizado às ${timeFormatter.format(now)}`;
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 60000);
+
+        document.querySelector('.search-input-wrapper input').addEventListener('input', (e) => {
+            console.log('Search:', e.target.value);
+        });
+
+        document.querySelectorAll('.newsletter-form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = form.querySelector('input[type="email"]').value;
+                console.log('Newsletter signup:', email);
+                alert(`Obrigado pela inscrição, ${email}!`);
+                form.reset();
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
