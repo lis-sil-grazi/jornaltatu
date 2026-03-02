@@ -49,14 +49,14 @@ app.get('/api/news/latest', async (req, res) => {
     const limit = parseInt(req.query.limit) || 30;
     const articles = getLatestArticles(limit);
     
-    // Translate to Portuguese + add sarcasm
-    const translatedArticles = await processArticles(articles);
+    // TODO: Translate to Portuguese + add sarcasm
+    // const translatedArticles = await processArticles(articles);
     
     res.json({
       success: true,
-      count: translatedArticles.length,
-      articles: translatedArticles,
-      note: 'Notícias traduzidas com um toque de humor. Because facts need to be funny.'
+      count: articles.length,
+      articles: articles,
+      note: 'Tradução em progresso... Stay tuned!'
     });
   } catch (error) {
     console.error('[API] Error fetching latest:', error);
@@ -112,15 +112,16 @@ app.get('/api/news/category/:category', async (req, res) => {
     // Get articles from database
     const articles = getArticlesByCategory(categoryKey, limit);
     
-    // Translate to Portuguese + add sarcasm
-    const translatedArticles = await processArticles(articles);
+    // TODO: Translate to Portuguese + add sarcasm
+    // For now, returning English articles with translation flags
+    // const translatedArticles = await processArticles(articles);
     
     res.json({
       success: true,
       category: categoryKey,
-      count: translatedArticles.length,
-      articles: translatedArticles,
-      note: 'De Casa Tatu para sua casa. Traduzido. Sarcástico. Verdadeiro.'
+      count: articles.length,
+      articles: articles,
+      note: 'De Casa Tatu para sua casa. Tradução em progresso...'
     });
   } catch (error) {
     console.error('[API] Error fetching category:', error);
