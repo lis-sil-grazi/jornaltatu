@@ -23,6 +23,12 @@ const NewsCard = ({ article }) => {
     return emojiMap[category] || '📰';
   };
 
+  // Extract sarcasm (text after the last period before sarcasm)
+  const hasSarcasm = article.description && (
+    article.description.includes('...') || 
+    article._withSarcasm === true
+  );
+
   return (
     <article className="news-card" onClick={() => window.open(article.url, '_blank')}>
       {article.imageUrl ? (
@@ -41,10 +47,20 @@ const NewsCard = ({ article }) => {
           {getCategoryEmoji(article.category)}
         </div>
       )}
-      <span className="news-card-category">{article.category}</span>
+      <div className="news-card-badges">
+        <span className="news-card-category">{article.category}</span>
+        {article._translated && (
+          <span className="badge-translated" title="Traduzido para português">🇧🇷</span>
+        )}
+        {hasSarcasm && (
+          <span className="badge-sarcasm" title="Com um toque de sarcasmo">✨</span>
+        )}
+      </div>
       <h3>{article.title}</h3>
       {article.description && (
-        <p className="news-card-excerpt">{article.description}</p>
+        <p className="news-card-excerpt">
+          {article.description}
+        </p>
       )}
       <div className="news-card-meta">
         <span>{article.source}</span>
@@ -53,7 +69,7 @@ const NewsCard = ({ article }) => {
       </div>
       <div className="news-card-footer">
         <a href={article.url} className="read-more" onClick={(e) => e.stopPropagation()}>
-          Ler artigo
+          Ler artigo →
         </a>
       </div>
     </article>

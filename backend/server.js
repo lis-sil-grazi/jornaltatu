@@ -13,6 +13,7 @@ const {
 } = require('./database');
 
 const { fetchCategoryNews, fetchAllCategories, CATEGORY_QUERIES } = require('./newsFetcher');
+const { processArticles } = require('./translationService');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -43,15 +44,19 @@ app.get('/api/health', (req, res) => {
 /**
  * Get latest news across all categories
  */
-app.get('/api/news/latest', (req, res) => {
+app.get('/api/news/latest', async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 30;
     const articles = getLatestArticles(limit);
     
+    // Translate to Portuguese + add sarcasm
+    const translatedArticles = await processArticles(articles);
+    
     res.json({
       success: true,
-      count: articles.length,
-      articles
+      count: translatedArticles.length,
+      articles: translatedArticles,
+      note: 'Notícias traduzidas com um toque de humor. Because facts need to be funny.'
     });
   } catch (error) {
     console.error('[API] Error fetching latest:', error);
@@ -107,11 +112,15 @@ app.get('/api/news/category/:category', async (req, res) => {
     // Get articles from database
     const articles = getArticlesByCategory(categoryKey, limit);
     
+    // Translate to Portuguese + add sarcasm
+    const translatedArticles = await processArticles(articles);
+    
     res.json({
       success: true,
       category: categoryKey,
-      count: articles.length,
-      articles
+      count: translatedArticles.length,
+      articles: translatedArticles,
+      note: 'De Casa Tatu para sua casa. Traduzido. Sarcástico. Verdadeiro.'
     });
   } catch (error) {
     console.error('[API] Error fetching category:', error);

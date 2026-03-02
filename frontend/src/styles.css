@@ -320,6 +320,58 @@ main {
     transform: translateX(4px);
 }
 
+/* Translation & Sarcasm Badges */
+.news-card-badges {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+.badge-translated {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #DEE2E6;
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: help;
+    font-weight: 600;
+    transition: all var(--transition-base);
+}
+
+.badge-translated:hover {
+    background-color: #C7D1D8;
+    transform: scale(1.1);
+}
+
+.badge-sarcasm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+    border-radius: 50%;
+    font-size: 12px;
+    cursor: help;
+    font-weight: 600;
+    animation: shimmer 2s ease-in-out infinite;
+    transition: all var(--transition-base);
+}
+
+.badge-sarcasm:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(255, 199, 0, 0.3);
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
 .loading {
     text-align: center;
     padding: var(--space-3xl);

@@ -58,10 +58,10 @@ function App() {
       <header>
         <div className="header-container">
           <a href="/" className="header-logo">
-            <div className="logo-image">🦔</div>
+            <div className="logo-image">🐢</div>
             <div className="logo-text">
               <h1>Jornal Tatu</h1>
-              <p>Notícias Curadas</p>
+              <p>De Casa Tatu para Sua Casa 🏠</p>
             </div>
           </a>
           <button 

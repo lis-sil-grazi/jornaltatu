@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jornal Tatu — Notícias Curadas Diariamente</title>
-    <meta name="description" content="Notícias curadas em tempo real. Bitcoin, Guerras, Política Internacional, Brasil e Hotelaria.">
+    <title>Jornal Tatu — De Casa Tatu para Sua Casa</title>
+    <meta name="description" content="Notícias relevantes em tempo real, traduzidas. Bitcoin, Guerras, Política Internacional, Brasil e Hotelaria.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -207,6 +207,60 @@
             line-height: 1.6;
         }
 
+        .news-card-badges {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-sm);
+        }
+
+        .badge-translated {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: #DEE2E6;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: help;
+            font-weight: 600;
+            transition: all var(--transition-base);
+            title: "Traduzido para português";
+        }
+
+        .badge-translated:hover {
+            background-color: #C7D1D8;
+            transform: scale(1.1);
+        }
+
+        .badge-sarcasm {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFC700 100%);
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: help;
+            font-weight: 600;
+            animation: shimmer 2s ease-in-out infinite;
+            transition: all var(--transition-base);
+            title: "Com um toque de sarcasmo";
+        }
+
+        .badge-sarcasm:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(255, 199, 0, 0.3);
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
         .news-card-meta {
             display: flex;
             justify-content: space-between;
@@ -338,8 +392,8 @@
     </header>
 
     <section class="hero">
-        <h1>Notícias Curadas</h1>
-        <p>Os principais acontecimentos em Bitcoin, política, conflitos e hotelaria — selecionados para você.</p>
+        <h1>De Casa Tatu para Sua Casa 🏠</h1>
+        <p>As notícias que importam. Traduzidas. Bitcoin, guerras, política e hotelaria — porque você merecia saber desde cedo.</p>
     </section>
 
     <nav class="tabs-container" role="tablist">
@@ -364,19 +418,22 @@
     </main>
 
     <footer>
-        <p>© 2026 Jornal Tatu. Notícias curadas com rigor.</p>
+        <p>© 2026 Jornal Tatu. Notícias que não te deixam com raiva de madrugada. Traduzidas. Sarcásticas. Verdadeiras.</p>
     </footer>
 
     <script>
         const CATEGORIES = {
-            bitcoin: { title: 'Bitcoin', description: 'Notícias sobre criptomoedas e blockchain', emoji: '🔷' },
-            'wars': { title: 'Guerras', description: 'Conflitos e tensões internacionais', emoji: '⚔️' },
-            'world-politics': { title: 'Política Internacional', description: 'Acontecimentos políticos globais', emoji: '🌍' },
-            'brazil-politics': { title: 'Política Brasileira', description: 'Política e eleições do Brasil', emoji: '🇧🇷' },
-            'hospitality': { title: 'Hotelaria', description: 'Turismo, hotéis e viagens', emoji: '🏨' }
+            bitcoin: { title: 'Bitcoin', description: 'Notícias sobre criptomoedas e blockchain', emoji: '🔷', apiName: 'Bitcoin' },
+            'wars': { title: 'Guerras', description: 'Conflitos e tensões internacionais', emoji: '⚔️', apiName: 'Guerras' },
+            'world-politics': { title: 'Política Internacional', description: 'Acontecimentos políticos globais', emoji: '🌍', apiName: 'Política Internacional' },
+            'brazil-politics': { title: 'Política Brasileira', description: 'Política e eleições do Brasil', emoji: '🇧🇷', apiName: 'Política Brasileira' },
+            'hospitality': { title: 'Hotelaria', description: 'Turismo, hotéis e viagens', emoji: '🏨', apiName: 'Hotelaria' }
         };
 
-        const API_BASE = 'https://jornal-tatu-backend.vercel.app/api/news';
+        // API_BASE - works with both localhost dev and production backend
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3001/api/news'
+            : 'https://jornal-tatu-backend.vercel.app/api/news';
         let currentCategory = 'bitcoin';
 
         // Update page date
@@ -439,7 +496,9 @@
             createSkeletons();
 
             try {
-                const response = await fetch(`${API_BASE}/${category}`);
+                // Use the API category name (Portuguese)
+                const apiCategory = categoryInfo.apiName;
+                const response = await fetch(`${API_BASE}/category/${encodeURIComponent(apiCategory)}`);
                 if (!response.ok) throw new Error('Erro ao buscar notícias');
 
                 const data = await response.json();
@@ -470,9 +529,28 @@
             articles.forEach(article => {
                 const card = document.createElement('article');
                 card.className = 'news-card';
+                
+                // Check for translation and sarcasm
+                const hasTranslation = article._translated === true;
+                const hasSarcasm = article._withSarcasm === true || (article.description && article.description.includes('...'));
+                
+                // Build badges HTML
+                let badgesHTML = '';
+                if (hasTranslation || hasSarcasm) {
+                    badgesHTML = '<div class="news-card-badges">';
+                    if (hasTranslation) {
+                        badgesHTML += '<span class="badge-translated" title="Traduzido para português">🇧🇷</span>';
+                    }
+                    if (hasSarcasm) {
+                        badgesHTML += '<span class="badge-sarcasm" title="Com um toque de sarcasmo">✨</span>';
+                    }
+                    badgesHTML += '</div>';
+                }
+                
                 card.innerHTML = `
+                    ${badgesHTML}
                     <h3 class="news-card-title">${escapeHtml(article.title)}</h3>
-                    <p class="news-card-excerpt">${escapeHtml(article.excerpt || 'Sem descrição disponível')}</p>
+                    <p class="news-card-excerpt">${escapeHtml(article.description || article.excerpt || 'Sem descrição disponível')}</p>
                     <div class="news-card-meta">
                         <span class="news-card-source">${escapeHtml(article.source)}</span>
                         <span class="news-card-time">${formatRelativeTime(article.publishedAt)}</span>
