@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: jornal-tatu-backend
+    runtime: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: NEWSAPI_KEY
+        value: ${NEWSAPI_KEY}
+      - key: BRAVE_API_KEY
+        value: ${BRAVE_API_KEY}
+
+  - type: static
+    name: jornal-tatu-frontend
+    plan: free
+    staticPublishPath: .
+    buildCommand: echo "Static site ready"
+    routes:
+      - path: /
+        file: index.html
