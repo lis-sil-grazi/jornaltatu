@@ -24,14 +24,14 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, '../')));
-
-// Request logging
+// Request logging (early)
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
   next();
 });
+
+// API routes first (before static serving)
+// All /api/* routes defined below...
 
 /**
  * Root endpoint - debug
@@ -221,6 +221,9 @@ app.get('/api/stats', (req, res) => {
     });
   }
 });
+
+// Serve static frontend files (after all API routes)
+app.use(express.static(path.join(__dirname, '../')));
 
 // SPA fallback: serve index.html for non-API routes
 app.use((req, res) => {
