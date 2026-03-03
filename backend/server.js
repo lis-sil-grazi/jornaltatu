@@ -206,7 +206,7 @@ app.get('/api/stats', (req, res) => {
 });
 
 // SPA fallback: serve index.html for non-API routes
-app.get('*', (req, res) => {
+app.use((req, res) => {
   if (!req.path.startsWith('/api/')) {
     res.sendFile(path.join(__dirname, '../index.html'));
   } else {
