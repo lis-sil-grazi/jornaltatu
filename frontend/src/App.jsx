@@ -16,9 +16,8 @@ function App() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [refreshing, setRefreshing] = useState(false);
 
-  const loadNews = async (category, forceRefresh = false) => {
+  const loadNews = async (category) => {
     try {
       setLoading(true);
       setError(null);
@@ -27,7 +26,7 @@ function App() {
       if (category === 'Todos') {
         data = await fetchLatestNews(30);
       } else {
-        data = await fetchCategoryNews(category, 20, forceRefresh);
+        data = await fetchCategoryNews(category, 20);
       }
       
       setArticles(data.articles || []);
@@ -36,7 +35,6 @@ function App() {
       setError('Falha ao carregar notícias. Tente novamente.');
     } finally {
       setLoading(false);
-      setRefreshing(false);
     }
   };
 
@@ -46,11 +44,6 @@ function App() {
 
   const handleCategoryChange = (category) => {
     setActiveCategory(category);
-  };
-
-  const handleRefresh = () => {
-    setRefreshing(true);
-    loadNews(activeCategory, true);
   };
 
   return (
@@ -64,13 +57,6 @@ function App() {
               <p>De Casa Tatu para Sua Casa 🏠</p>
             </div>
           </a>
-          <button 
-            className="btn-primary" 
-            onClick={handleRefresh}
-            disabled={refreshing}
-          >
-            {refreshing ? '↻ Atualizando...' : '↻ Atualizar'}
-          </button>
         </div>
       </header>
 
@@ -111,7 +97,7 @@ function App() {
           <div className="empty-state">
             <p>Nenhuma notícia encontrada para {activeCategory}</p>
             <p style={{ marginTop: '16px', fontSize: '14px', color: '#8A8A8A' }}>
-              Clique em "Atualizar" para buscar as últimas notícias
+              Tente selecionar outra categoria
             </p>
           </div>
         )}
