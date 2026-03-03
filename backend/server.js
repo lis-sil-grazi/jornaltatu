@@ -40,6 +40,8 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
     timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    nodeVersion: process.version,
     database: stats,
     categories: Object.keys(CATEGORY_QUERIES)
   });
