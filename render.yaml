@@ -6,10 +6,15 @@ services:
     buildCommand: cd backend && npm install
     startCommand: cd backend && node server.js
     healthCheckPath: /api/health
+    healthCheckInterval: 15
+    preDeployCommand: npm install
+    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3001
       - key: NEWSAPI_KEY
-        sync: false
+        value: 74ab4b21814447f186c40bd848b28798
       - key: BRAVE_API_KEY
         value: demo_key
