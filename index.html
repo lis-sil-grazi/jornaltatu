@@ -430,10 +430,29 @@
             'hospitality': { title: 'Hotelaria', description: 'Turismo, hotéis e viagens', emoji: '🏨', apiName: 'Hotelaria' }
         };
 
-        // API_BASE - works with both localhost dev and production backend
-        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:3001/api/news'
-            : 'https://jornal-tatu-backend.vercel.app/api/news';
+        // API_BASE - Dynamic detection for dev/prod
+        const API_BASE = (() => {
+            const host = window.location.hostname;
+            
+            // Development: localhost
+            if (host === 'localhost' || host === '127.0.0.1') {
+                return 'http://localhost:3001/api/news';
+            }
+            
+            // Production: Render (auto-detect backend URL)
+            if (host.includes('onrender.com')) {
+                const backendUrl = host.replace('jornal-tatu-frontend', 'jornal-tatu-backend');
+                return `https://${backendUrl}/api/news`;
+            }
+            
+            // Fallback: GitHub Pages + external backend
+            if (host === 'jornaltatu.com' || host.includes('github.io')) {
+                return 'https://jornal-tatu-backend-xxxxx.onrender.com/api/news';
+            }
+            
+            // Default fallback
+            return 'https://jornal-tatu-backend.onrender.com/api/news';
+        })();
         let currentCategory = 'bitcoin';
 
         // Update page date
