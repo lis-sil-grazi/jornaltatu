@@ -1,146 +1,139 @@
-const Database = require('better-sqlite3');
+const fs = require('fs');
 const path = require('path');
 
-// Initialize database
-const db = new Database(path.join(__dirname, 'news.db'));
+// Database file path
+const DB_FILE = path.join(__dirname, 'articles.json');
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6 hours
 
-// Create articles table
-db.exec(`
-  CREATE TABLE IF NOT EXISTS articles (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL,
-    title TEXT NOT NULL,
-    description TEXT,
-    source TEXT,
-    url TEXT NOT NULL,
-    imageUrl TEXT,
-    publishedAt TEXT,
-    fetchedAt INTEGER NOT NULL,
-    UNIQUE(category, title)
-  )
-`);
+// Initialize/load database
+function loadDatabase() {
+  try {
+    if (fs.existsSync(DB_FILE)) {
+      const data = fs.readFileSync(DB_FILE, 'utf8');
+      return JSON.parse(data);
+    }
+  } catch (error) {
+    console.error('[Database] Error loading database:', error.message);
+  }
+  return {
+    articles: [],
+    lastUpdated: {}
+  };
+}
 
-// Create index for faster queries
-db.exec(`
-  CREATE INDEX IF NOT EXISTS idx_category ON articles(category);
-  CREATE INDEX IF NOT EXISTS idx_fetchedAt ON articles(fetchedAt);
-`);
+let db = loadDatabase();
+
+// Save database to file
+function saveDatabase() {
+  try {
+    fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
+  } catch (error) {
+    console.error('[Database] Error saving database:', error.message);
+  }
+}
 
 /**
  * Insert or ignore article (prevents duplicates)
  */
 function insertArticle(article) {
-  const stmt = db.prepare(`
-    INSERT OR IGNORE INTO articles (category, title, description, source, url, imageUrl, publishedAt, fetchedAt)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-  
-  return stmt.run(
-    article.category,
-    article.title,
-    article.description || '',
-    article.source || 'Unknown',
-    article.url,
-    article.imageUrl || '',
-    article.publishedAt || new Date().toISOString(),
-    Date.now()
+  const articleWithCategory = {
+    ...article,
+    category: article.category || 'Unknown',
+    fetchedAt: Date.now()
+  };
+
+  // Check if article already exists (by title + category)
+  const exists = db.articles.find(
+    a => a.title === article.title && a.category === article.category
   );
+
+  if (!exists) {
+    db.articles.push(articleWithCategory);
+    saveDatabase();
+    return { changes: 1 };
+  }
+
+  return { changes: 0 };
 }
 
 /**
  * Get articles by category
  */
 function getArticlesByCategory(category, limit = 20) {
-  const stmt = db.prepare(`
-    SELECT * FROM articles
-    WHERE category = ?
-    ORDER BY publishedAt DESC
-    LIMIT ?
-  `);
-  
-  return stmt.all(category, limit);
+  return db.articles
+    .filter(a => a.category === category)
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+    .slice(0, limit);
 }
 
 /**
  * Get latest articles across all categories
  */
 function getLatestArticles(limit = 30) {
-  const stmt = db.prepare(`
-    SELECT * FROM articles
-    ORDER BY publishedAt DESC
-    LIMIT ?
-  `);
-  
-  return stmt.all(limit);
+  return db.articles
+    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
+    .slice(0, limit);
 }
 
 /**
- * Get articles by multiple categories
- */
-function getArticlesByCategories(categories, limit = 20) {
-  const placeholders = categories.map(() => '?').join(',');
-  const stmt = db.prepare(`
-    SELECT * FROM articles
-    WHERE category IN (${placeholders})
-    ORDER BY publishedAt DESC
-    LIMIT ?
-  `);
-  
-  return stmt.all(...categories, limit);
-}
-
-/**
- * Check if category needs refresh (older than 6 hours)
+ * Check if category needs refresh (based on TTL)
  */
 function needsRefresh(category) {
-  const sixHoursAgo = Date.now() - (6 * 60 * 60 * 1000);
-  const stmt = db.prepare(`
-    SELECT COUNT(*) as count FROM articles
-    WHERE category = ? AND fetchedAt > ?
-  `);
-  
-  const result = stmt.get(category, sixHoursAgo);
-  return result.count === 0;
+  const lastUpdate = db.lastUpdated[category];
+  if (!lastUpdate) return true;
+  return Date.now() - lastUpdate > CACHE_TTL;
 }
 
 /**
- * Delete articles older than 7 days
+ * Update refresh timestamp for category
+ */
+function updateRefreshTimestamp(category) {
+  db.lastUpdated[category] = Date.now();
+  saveDatabase();
+}
+
+/**
+ * Cleanup old articles (older than 30 days)
  */
 function cleanupOldArticles() {
-  const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
-  const stmt = db.prepare(`
-    DELETE FROM articles WHERE fetchedAt < ?
-  `);
-  
-  const result = stmt.run(sevenDaysAgo);
-  console.log(`[Database] Cleaned up ${result.changes} old articles`);
-  return result.changes;
+  const thirtyDaysAgo = Date.now() - (30 * 24 * 60 * 60 * 1000);
+  const before = db.articles.length;
+
+  db.articles = db.articles.filter(a => {
+    const fetchedAt = a.fetchedAt || 0;
+    return fetchedAt > thirtyDaysAgo;
+  });
+
+  const removed = before - db.articles.length;
+  if (removed > 0) {
+    console.log(`[Database] Cleaned up ${removed} old articles`);
+    saveDatabase();
+  }
+
+  return removed;
 }
 
 /**
- * Get database statistics
+ * Get database stats
  */
 function getStats() {
-  const totalStmt = db.prepare(`SELECT COUNT(*) as total FROM articles`);
-  const categoryStmt = db.prepare(`
-    SELECT category, COUNT(*) as count
-    FROM articles
-    GROUP BY category
-  `);
-  
   return {
-    total: totalStmt.get().total,
-    byCategory: categoryStmt.all()
+    totalArticles: db.articles.length,
+    categories: [...new Set(db.articles.map(a => a.category))],
+    lastRefreshed: Object.entries(db.lastUpdated).map(([cat, ts]) => ({
+      category: cat,
+      timestamp: new Date(ts).toISOString(),
+      ageMinutes: Math.round((Date.now() - ts) / 60000)
+    }))
   };
 }
 
 module.exports = {
-  db,
   insertArticle,
   getArticlesByCategory,
   getLatestArticles,
-  getArticlesByCategories,
   needsRefresh,
+  updateRefreshTimestamp,
   cleanupOldArticles,
   getStats
 };

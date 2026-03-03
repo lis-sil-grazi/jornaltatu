@@ -9,6 +9,7 @@ const {
   getArticlesByCategory,
   getLatestArticles,
   needsRefresh,
+  updateRefreshTimestamp,
   cleanupOldArticles,
   getStats
 } = require('./database');
@@ -30,6 +31,18 @@ app.use(express.static(path.join(__dirname, '../')));
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
   next();
+});
+
+/**
+ * Root endpoint - debug
+ */
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Jornal Tatu Backend',
+    version: '1.0.0',
+    status: 'running',
+    timestamp: new Date().toISOString()
+  });
 });
 
 /**
@@ -112,6 +125,7 @@ app.get('/api/news/category/:category', async (req, res) => {
         }
       }
       
+      updateRefreshTimestamp(categoryKey);
       console.log(`[API] Inserted ${inserted} new articles for ${categoryKey}`);
     }
 
@@ -158,6 +172,7 @@ app.post('/api/news/refresh', async (req, res) => {
           console.error(`[API] Error inserting article for ${category}:`, error.message);
         }
       }
+      updateRefreshTimestamp(category);
       summary[category] = { fetched: articles.length, inserted };
     }
 
@@ -245,6 +260,7 @@ cron.schedule('0 0 * * *', async () => {
           // Ignore duplicate errors
         }
       }
+      updateRefreshTimestamp(category);
     }
     console.log('[Cron] Midnight auto-refresh completed');
   } catch (error) {
@@ -263,7 +279,7 @@ cron.schedule('0 2 * * *', () => {
 app.listen(PORT, () => {
   console.log(`\n🚀 Jornal Tatu Backend Server`);
   console.log(`📡 API running on http://localhost:${PORT}`);
-  console.log(`🗄️  Database: SQLite (news.db)`);
+  console.log(`🗄️  Database: JSON (articles.json)`);
   console.log(`📰 Categories: ${Object.keys(CATEGORY_QUERIES).join(', ')}`);
   console.log(`\n📋 Endpoints:`);
   console.log(`   GET  /api/health`);
