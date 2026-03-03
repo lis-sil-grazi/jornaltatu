@@ -1175,7 +1175,7 @@
                     throw new Error('Resposta de API inválida');
                 }
 
-                renderArticles(data.articles);
+                renderArticles(data.articles, category);
                 updatePageStats(data.articles);
                 updateApiStatus(true);
             } catch (error) {
@@ -1196,7 +1196,7 @@
         /**
          * Render articles to the DOM
          */
-        function renderArticles(articles) {
+        function renderArticles(articles, categoryName) {
             const container = document.getElementById('news-container');
             container.innerHTML = '';
 
@@ -1214,6 +1214,8 @@
                 `;
                 return;
             }
+
+            const cat = CATEGORIES[categoryName];
 
             articles.forEach(article => {
                 const card = document.createElement('article');
@@ -1241,7 +1243,7 @@
                 const url = article.url || '#';
 
                 card.innerHTML = `
-                    <div class="news-card-category">${CATEGORIES[currentCategory].emoji || '📰'} ${CATEGORIES[currentCategory].title}</div>
+                    <div class="news-card-category">${cat.emoji || '📰'} ${cat.title}</div>
                     ${badgesHtml}
                     <h3 class="news-card-title">${title}</h3>
                     <p class="news-card-excerpt">${excerpt}</p>
