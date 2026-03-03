@@ -1241,7 +1241,7 @@
                 const url = article.url || '#';
 
                 card.innerHTML = `
-                    <div class="news-card-category">${categoryInfo.emoji || '📰'} ${CATEGORIES[currentCategory].title}</div>
+                    <div class="news-card-category">${CATEGORIES[currentCategory].emoji || '📰'} ${CATEGORIES[currentCategory].title}</div>
                     ${badgesHtml}
                     <h3 class="news-card-title">${title}</h3>
                     <p class="news-card-excerpt">${excerpt}</p>
