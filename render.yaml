@@ -8,9 +8,3 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 3001
-      - key: NEWSAPI_KEY
-        value: ${NEWSAPI_KEY}
-      - key: BRAVE_API_KEY
-        value: ${BRAVE_API_KEY}
