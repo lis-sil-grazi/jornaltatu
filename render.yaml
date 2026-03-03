@@ -14,14 +14,3 @@ services:
         value: ${NEWSAPI_KEY}
       - key: BRAVE_API_KEY
         value: ${BRAVE_API_KEY}
-
-  - type: web
-    name: jornal-tatu-frontend
-    plan: free
-    runtime: static
-    buildCommand: echo "Frontend ready"
-    startCommand: python3 -m http.server 3000 --directory .
-    healthCheckPath: /
-    routes:
-      - path: /
-        destination: http://localhost:3000

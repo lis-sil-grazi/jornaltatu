@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const cron = require('node-cron');
+const path = require('path');
 require('dotenv').config();
 
 const {
@@ -21,6 +22,9 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Serve static frontend files
+app.use(express.static(path.join(__dirname, '../')));
 
 // Request logging
 app.use((req, res, next) => {
@@ -201,12 +205,16 @@ app.get('/api/stats', (req, res) => {
   }
 });
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    error: 'Endpoint not found'
-  });
+// SPA fallback: serve index.html for non-API routes
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api/')) {
+    res.sendFile(path.join(__dirname, '../index.html'));
+  } else {
+    res.status(404).json({
+      success: false,
+      error: 'Endpoint not found'
+    });
+  }
 });
 
 // Error handler
